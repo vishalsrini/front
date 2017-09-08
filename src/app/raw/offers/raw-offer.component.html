@@ -1,0 +1,96 @@
+<div class="container" *ngIf="offers">
+    <div class="col-md-12">
+        <div class="card card-plain">
+            <div class="header">
+                <h4 class="title">Raw Cashew {{off?'Offers':'Requirements'}}
+                    <a *ngIf="!isNotMobile() && !edit" class="small pull-right" (click)="rawCashewPost(off?'offer':'requirement')"> Post Your {{off?'Offer':'Requirement'}} </a>
+                </h4>
+                <p *ngIf="!isNotMobile()" class="category"> Pick the one you interested in or 
+                    <a *ngIf="!edit" (click)="rawCashewPost(off?'requirement':'offer')"> post your {{off?'requirement':'offer'}} </a>                    
+                    <a *ngIf="!edit" class="small pull-right" (click)="toggle()"> View Existing {{off?'requirements':'offers'}} </a>
+                    <a *ngIf="edit" class="small pull-right" (click)="toggleOnce()"> View Existing {{off?'requirements':'offers'}} </a>
+                </p>
+            </div>
+            <div class="content">
+                <div ngClass="{{offer.expand?'col-md-12 col-xs-12':'col-md-4 col-xs-12'}}" *ngFor="let offer of offers">
+                    <div class="card card-user">
+                        <div class="content text-center">
+                            <div *ngIf="edit" class="col-md-12 col-xs-12">
+                                <img class="pull-left" [src]="offer.status=='inProgress'?'assets/img/stopwatch.svg':offer.status=='approved'?'assets/img/approved-signal.svg':'assets/img/x-button.svg'" [style.width]="(offer.expand?'5':'10') + '%'"> <span class="pull-right label" ngClass="{{offer.status=='approved'?'label-success':offer.status=='inProgress'?'label-primary':'label-danger'}}"> {{offer.status}} </span>
+                            </div>
+
+                            <!-- Origin, Year, Nut Count, Quantity, Shipment, FOB, CIF -->
+                            <div ngClass="{{offer.expand?'col-md-2 col-xs-6 text-right':'col-md-6 col-xs-6 text-right'}}">
+                                Origin <br> Year Of Crop <br> Nut Count <br> Quantity
+                                <br> Shipment
+                            </div>
+                            <div ngClass="{{offer.expand?'col-md-2 col-xs-6 text-left':'col-md-6 col-xs-6 text-left'}}">
+                                {{offer.origin}} <br> {{offer.year}} <br> {{offer.nutCount}} <br> {{offer.quantity}} Kgs
+                                <br> {{offer.shipment}}
+
+                            </div>
+
+                            <!-- Out turn, defective, moisture, others -->
+                            <div *ngIf="offer.expand" class="col-md-2 col-xs-6 text-right">
+                                Out-turn <br> Defective <br> Moisture <br> Others <br> FOB
+                                <br>
+                            </div>
+                            <div *ngIf="offer.expand" Class="col-md-2 col-xs-6 text-left">
+                                {{offer.outTurn}}% <br> {{offer.defective}}% <br> {{offer.moisture}}% <br> {{offer.others}}%
+                                <br> <i ngClass="{{offer.fob?'ti-check text-primary':'ti-na text-danger'}}"></i>
+                            </div>
+
+                            <!-- Packing, loading, inspection, landing port -->
+                            <div *ngIf="offer.expand" class="col-md-2 col-xs-6 text-right text-bold">
+                                Packing <br> Loading <br> Inspection <br> Landing Port <br> CIF
+                                <br>
+                            </div>
+                            <div *ngIf="offer.expand" class="col-md-2 col-xs-6 text-left">
+                                {{offer.packing}} <br> {{offer.loading}} <br> {{offer.inspection}} <br> {{offer.landingPort}}
+                                <br> <i ngClass="{{offer.cif?'ti-check text-primary':'ti-na text-danger'}}"></i>
+                            </div>
+
+                            <!-- Payment Terms -->
+                            <div class="col-md-12 col-xs-12">
+                                <b>Payment Terms </b> : <small> {{offer.paymentTerms}} </small>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="text-center">
+                            <div class="row">
+                                <div ngClass="{{offer.expand?'col-md-4 col-xs-4':'col-md-6 col-xs-6'}}">
+                                    <h5>Rs. {{offer.price}}<br /><small>Price/Kg</small></h5>
+                                </div>
+                                <div *ngIf="offer.expand" class="col-md-4 col-xs-4">
+                                    <h5>{{offer.createdAt | date}}<br /><small>Created At</small></h5>
+                                </div>
+                                <div ngClass="{{offer.expand?'col-md-4 col-xs-4':'col-md-6 col-xs-6'}}">
+                                    <h5>
+                                        <button class="btn btn-sm btn-primary" *ngIf="!offer.expand" (click)="offer.expand = true"> Show More </button>
+                                        <button class="btn btn-sm btn-primary" *ngIf="offer.expand" (click)="offer.expand = false"> Show Less </button>
+                                        <button class="btn btn-sm btn-success" *ngIf="offer.expand && !edit" (click)="negotiateItem(offer._id, off?'offer':'requirement')"> Negotiate </button>
+                                        <button class="btn btn-sm btn-danger" *ngIf="offer.expand && edit" (click)="editmethod(off?'offer':'requirement', offer)"> Edit </button>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!edit" class="btn-group dropup floating-action-button">
+        <button type="button" class="btn btn-lg btn-primary btn-fill btn-circle dropdown-toggle" ngClass="{{rotate?'rotate':''}}"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="$event.stopPropagation(); rotate=!rotate"><i class="ti-plus text-default"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right" ngClass="{{rotate?'showDropdown':''}}">
+            <li><a class="btn btn-primary text-default" (click)="rawCashewPost('offer')"> Post Your Offer </a></li>
+            <li><a class="btn btn-primary text-default" (click)="rawCashewPost('requirement')"> Post Your Requirement </a></li>
+            <li><a class="btn btn-primary text-default" (click)="toggle()"> View Existing  {{off?'Requirements':'Offers'}}</a></li>
+        </ul>
+    </div>
+</div>
+<div *ngIf="!offers">
+    No data found
+</div>
+<raw-post #rawPost> </raw-post>

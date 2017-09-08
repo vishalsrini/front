@@ -1,0 +1,35 @@
+<div class="pagination">
+	<div class="nxn-pagination-container">
+		<!-- for previous button -->
+		<div class="nxn-paging-item btn-back">
+			<button class="nxn-btn-primary" [disabled]="currentPage-1 == 0 ? true : false" (click)="setPage(currentPage-1)"><i class="fa fa-angle-left nxn-fa-xl nxn-white-imp"></i></button>
+		</div>
+		<!-- for select page from the dropdown -->
+		<div class="nxn-paging-item select-page">
+			<div class="form-group pagedropdown">
+				<select class="form-control pagedropdownlist" [(ngModel)]=currentPage (ngModelChange)=setPage($event)>
+           <option *ngFor ="let pageNumber  of pages" [ngValue]="pageNumber.value" > {{pageNumber.page}} </option>
+        </select>
+			</div>
+		</div>
+		<!-- for next button -->
+		<div class="nxn-paging-item btn-fwd">
+			<button class="nxn-btn-primary" [disabled]="currentPage == pager.totalPages ? true : false" (click)="setPage(currentPage + 1)"><i class="fa fa-angle-right nxn-fa-xl nxn-white-imp"></i></button>
+		</div>
+		<!-- for select pagesize from the dropdown  -->
+		<div class="nxn-paging-item select-row-range">
+			<div class="form-group pagedropdown ">
+				<select class="form-control pagedropdownlist" [(ngModel)]="pageSize" (ngModelChange)=setPageSize(pageSize)>
+             <option value="5" selected="selected">5 Items</option>
+             <option value="10" >10 Items</option>
+             <option value="20">20 Items</option>
+             <option value="50">50 Items</option>
+        </select>
+			</div>
+		</div>
+		<!-- show the range of items from the table -->
+		<div *ngIf="pager.startIndex < pager.totalItems" class="nxn-paging-item row-range" id="range-span">
+			<span>{{pager.startIndex+1}} - {{pager.endIndex+1}} / {{pager.totalItems}}</span>
+		</div>
+	</div>
+</div>

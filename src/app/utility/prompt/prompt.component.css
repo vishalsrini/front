@@ -1,0 +1,7 @@
+.modal-dialog {
+    margin:15% auto;
+}
+
+.modal-dialog.modal-sm {
+    width:400px !important;
+}

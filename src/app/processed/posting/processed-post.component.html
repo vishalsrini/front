@@ -1,0 +1,267 @@
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{header}}
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </h4>
+            </div>
+            <form name="form" (ngSubmit)="f.form.valid && save()" #f="ngForm" novalidate>
+                <div class="modal-body">
+                    <h3>
+                        Please Complete Step {{step}}
+                        <div *ngIf="!isNotMobile()" class="btn-group pull-right">
+                            <button type="button" ngClass="{{step == 1?'btn btn-sm btn-primary btn-fill':'btn btn-sm btn-default btn-fill'}}" (click)="step = 1"><span class="badge"> 1 </span></button>
+                            <button type="button" ngClass="{{step == 2?'btn btn-sm btn-primary btn-fill':'btn btn-sm btn-default btn-fill'}}" (click)="step = 2"><span class="badge"> 2 </span></button>
+                            <button type="button" ngClass="{{step == 3?'btn btn-sm btn-primary btn-fill':'btn btn-sm btn-default btn-fill'}}" (click)="step = 3"><span class="badge"> 3 </span></button>
+                        </div>
+                    </h3>
+
+                    <div *ngIf="step == 1" class="jumbotron">
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12">
+                                <div class="card card-user">
+                                    <div class="header">
+                                        <h4 class="title">Basic Details </h4>
+                                        <p class="category"> Few Informations to start with </p>
+                                    </div>
+                                    <div class="content">
+
+                                        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !origin.valid }">
+                                            <label for="origin">Crop Origin</label>
+                                            <input type="text" class="form-control input-sm border-input" name="origin" [(ngModel)]="quote.origin" #origin="ngModel"
+                                                required />
+                                            <div *ngIf="f.submitted && !origin.valid" class="help-block">Origin of Crop is required</div>
+                                        </div>
+
+                                        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !processedAt.valid }">
+                                            <label for="processedAt">Processed At</label>
+                                            <input type="text" class="form-control input-sm border-input" name="processedAt" [(ngModel)]="quote.processedAt" #processedAt="ngModel"
+                                                required />
+                                            <div *ngIf="f.submitted && !processedAt.valid" class="help-block">Year of Crop is required</div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6 col-xs-6">
+                                                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !quantity.valid }">
+                                                    <label for="quantity">Quantity</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control input-sm border-input" name="quantity" [(ngModel)]="quote.quantity" #quantity="ngModel"
+                                                            required />
+                                                        <span class="input-group-addon"> KGS </span>
+                                                    </div>
+                                                    <div *ngIf="f.submitted && !quantity.valid" class="help-block">quantity is required</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xs-6">
+                                                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !price.valid }">
+                                                    <label for="price">Price</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control input-sm border-input" name="price" [(ngModel)]="quote.price" #price="ngModel" required
+                                                        />
+                                                        <span class="input-group-addon"> Rs/Kg </span>
+                                                    </div>
+                                                    <div *ngIf="f.submitted && !price.valid" class="help-block">Price is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-xs-12">
+                                <div class="card card-user">
+                                    <div class="header">
+                                        <h4 class="title"> Counting </h4>
+                                        <p class="category"> Numbers that matter a lot </p>
+                                    </div>
+                                    <div class="content">
+
+                                        <div class="row">
+                                            <div class="col-md-6 col-xs-6">
+                                                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !type.valid }">
+                                                    <label for="type">Type</label>
+                                                    <select class="form-control border-input" name="type" [(ngModel)]="quote.type" #type="ngModel" required>
+                                                        <option selected value="whole"> Whole </option>
+                                                        <option selected value="pieces"> Pieces </option>
+                                                    </select>
+                                                    <div *ngIf="f.submitted && !type.valid" class="help-block">Type of cashew is required</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xs-6">
+                                                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !grade.valid }">
+                                                    <label for="grade">Grade</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control input-sm border-input" name="grade" [(ngModel)]="quote.grade" #grade="ngModel" required
+                                                        />
+                                                        <span class="input-group-addon"> {{quote.type?quote.type:'wholes/pieces'}} </span>
+                                                    </div>
+                                                    <div *ngIf="f.submitted && !grade.valid" class="help-block">grade is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6 col-xs-6">
+                                                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !defective.valid }">
+                                                    <label for="defective">Defective</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control input-sm border-input" name="defective" [(ngModel)]="quote.defective" #defective="ngModel"
+                                                            required />
+                                                        <span class="input-group-addon"> % </span>
+                                                    </div>
+                                                    <div *ngIf="f.submitted && !defective.valid" class="help-block">defective is required</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xs-6">
+                                                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !moisture.valid }">
+                                                    <label for="moisture">Moisture</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control input-sm border-input" name="moisture" [(ngModel)]="quote.moisture" #moisture="ngModel"
+                                                            required />
+                                                        <span class="input-group-addon"> % </span>
+                                                    </div>
+                                                    <div *ngIf="f.submitted && !moisture.valid" class="help-block">moisture is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6 col-xs-6">
+                                                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !location.valid }">
+                                                    <label for="location">Delivery Location</label>
+                                                    <input type="text" class="form-control input-sm border-input" name="location" [(ngModel)]="quote.location" #location="ngModel"
+                                                        required />
+                                                    <div *ngIf="f.submitted && !location.valid" class="help-block">Type of location is required</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xs-6">
+                                                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !shipment.valid }">
+                                                    <label for="shipment">Shipment</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control input-sm border-input" name="shipment" [(ngModel)]="quote.shipment" #shipment="ngModel"
+                                                            required />
+                                                        <span class="input-group-addon"> Month </span>
+                                                    </div>
+                                                    <div *ngIf="f.submitted && !shipment.valid" class="help-block">shipment is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="step == 2" class="jumbotron">
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2 col-xs-12">
+                                <div class="card card-user">
+                                    <div class="header">
+                                        <h4 class="title"> Continue ... </h4>
+                                        <p class="category"> Select the one that fits </p>
+                                    </div>
+                                    <div class="content">
+
+                                        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !packing.valid }">
+                                            <label for="packing">Packing</label>
+                                            <select class="form-control border-input" name="packing" [(ngModel)]="quote.packing" #packing="ngModel" required>
+                                                <option selected value="2 tins of 10kg each in carton"> 2 Tins of 10kg each in carton </option>
+                                                <option value="2 tins of 10lbs each in carton"> 2 Tins of 10LBS each in carton </option>
+                                            </select>
+                                            <div *ngIf="f.submitted && !packing.valid" class="help-block">packing is required</div>
+                                        </div>
+
+                                        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !quality.valid }">
+                                            <label for="quality">Quality and Grading</label>
+                                            <select class="form-control border-input" name="quality" [(ngModel)]="quote.quality" #quality="ngModel" required>
+                                                <option selected value="first quality fancy"> First Quality Fancy </option>
+                                                <option selected value="second quality scorched"> Second Quality Scorched </option>
+                                                <option selected value="third quality special scorched"> Third Quality Special Scorched </option>
+                                                <option selected value="fourth quality"> Fourth Quality </option>
+                                                <option selected value="lightly blemished wholes"> Lightly Blemished Wholes (LBW) </option>
+                                                <option selected value="lightly blemished pieces"> Lightly Blemished Pieces (LP) </option>
+                                                <option selected value="blemished wholes"> Blemished Wholes (BW) </option>
+                                            </select>
+                                            <div *ngIf="f.submitted && !quality.valid" class="help-block">quality and grading is required</div>
+                                        </div>
+
+
+
+                                        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !inspection.valid }">
+                                            <label for="inspection">Inspection</label>
+                                            <select class="form-control border-input" name="inspection" [(ngModel)]="quote.inspection" #inspection="ngModel" required>
+                                                <option selected value="sgs"> SGS </option>
+                                            </select>
+                                            <div *ngIf="f.submitted && !inspection.valid" class="help-block">Inspection is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div *ngIf="step == 3" class="jumbotron">
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2 col-xs-12">
+                                <div class="card card-user">
+                                    <div class="header">
+                                        <h4 class="title"> Here we go!! Last few items </h4>
+                                        <p class="category"> Select the payment and INCO Terms </p>
+                                    </div>
+                                    <div class="content">
+                                        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !nslg.valid }">
+                                            <label for="nslg">NSLG NLG max</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control input-sm border-input" name="nslg" [(ngModel)]="quote.nslg" #nslg="ngModel" required
+                                                />
+                                                <span class="input-group-addon"> % </span>
+                                            </div>
+                                            <div *ngIf="f.submitted && !nslg.valid" class="help-block">NSLG NLG max is required</div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !fob.valid }">
+                                                    <label class="checkbox" for="fob">
+                                                        <input type="checkbox" class="form-control border-input" id="fob" data-toggle="checkbox" name="fob" [(ngModel)]="quote.fob" #fob="ngModel" >
+                                                        FOB
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !cif.valid }">
+                                                    <label class="checkbox" for="cif">
+                                                        <input type="checkbox" class="form-control border-input" id="cif" data-toggle="checkbox" name="cif" [(ngModel)]="quote.cif" #cif="ngModel" >
+                                                        CIF
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !paymentTerms.valid }">
+                                            <label for="paymentTerms">Payment Terms</label>
+                                            <input type="text" class="form-control input-sm border-input" name="paymentTerms" [(ngModel)]="quote.paymentTerms" #paymentTerms="ngModel"
+                                                required />
+                                            <div *ngIf="f.submitted && !paymentTerms.valid" class="help-block">Payment Terms is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-sm btn-default pull-left" *ngIf="step > 1" (click)="step = step - 1 ">Back</a>
+                    <a class="btn btn-sm btn-primary" *ngIf="step < 3" (click)="step = step + 1 ">Next</a>
+                    <a class="btn btn-sm btn-warning pull-left" (click)="hideChildModal()">Cancel</a>
+                    <button type="submit" class="btn btn-info pull-right" *ngIf="step == 3">Post</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

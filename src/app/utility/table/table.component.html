@@ -1,0 +1,119 @@
+<!-- Top of any Table like search, download etc -->
+<div class="row">
+	<div class="well well-sm">
+		<div class="row">
+			<!-- Search option -->
+			<div class="col-md-4">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Search" [(ngModel)]="filter" (keyup)="search(filter)">
+					<div class="input-group-btn">
+						<button class="btn btn-default" type="submit">
+                        <i class="fa fa-search fa-lg"></i>
+                    </button>
+					</div>
+				</div>
+			</div>
+			<!-- Download option -->
+			<div class="col-md-8 text-right paddingtop">
+				<span dropdown>
+                    <span class="fa fa-arrow-circle-o-down fa-lg" dropdownToggle placement="bottom right" (click)="false"></span>
+				<ul *dropdownMenu class="dropdown-menu">
+					<li role="menuitem"><a class="dropdown-item" (click)="downloadExcel()"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export to Excel</a></li>
+					<li role="menuitem"><a class="dropdown-item" (click)="downloadPDF()"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Export to PDF</a></li>
+				</ul>
+				</span>
+
+				<!-- Refresh symbol and Date Option -->
+				<span class="fa fa-refresh fa-lg"></span>
+				<span>{{date | date:'medium'}}</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Table starts here -->
+<div class="row">
+	<!-- Nexen Table class -->
+	<!-- Load the table when showTable is true-->
+	<table class="table ng-table table-hover table-responsive nxn-table-responsive" *ngIf="showTable">
+		<thead>
+			<tr>
+
+				<!-- Iterating Keys of JSON input -->
+				<ng-container *ngFor="let key of showItems">
+					<th *ngIf="key.selected">
+						{{key.key | thPipe}}
+
+						<!-- For Sorting purpose -->
+						<i class="pull-right" ngClass="{{key.reverse?'fa fa-sort-asc':'fa fa-sort-desc'}}" aria-hidden="true" (click)="sorting(key.key);key.reverse=!key.reverse"></i>
+					</th>
+				</ng-container>
+
+				<!-- Dropdown for Settings -->
+				<td class="noPadding">
+					<div class="btn-group pull-right" dropdown placement="bottom right">
+						<button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+                            <i class="fa fa-cog fa-lg settingColor"></i> <!-- Settings Symbol -->
+                        </button>
+
+						<!-- Unordered List of values shown in dropdown -->
+						<ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
+							<li> Available Columns </li>
+							<li class="divider dropdown-divider"></li>
+							<li role="menuitem" *ngFor="let choice of showItems" (click)="choice.selected = !choice.selected">
+								<i ng-class="icon" ngClass="{{choice.selected?'fa fa-check fill':'fa fa-check noFill'}}"></i> {{choice.key | thPipe}}
+							</li>
+						</ul>
+					</div>
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+            <!--paginate: { id: uniqueId , itemsPerPage: itemsPerPage, currentPage: q }  | filterBy: filter: keys -->
+			<!-- Iterating value of the JSON input. OrderBy pipe is used for sorting purpose. paginate is used for pagination purpose -->
+			<tr *ngFor="let value of tableJson | paginate :[ start , end ] | orderBy:order:reverse">
+
+				<!-- Iterate keys array to fetch value of that particular key -->
+				<ng-container *ngFor="let key of showItems">
+					<td *ngIf="key.selected">
+						<span tooltip="{{value[key.key]}}">
+							<a *ngIf="key.key == 'name'; else elseBlock " href="javascript:void(0)" (click)="routeToEditSchedule(value[key.key])"> {{ value[key.key] | limitTo: 20 }}{{value[key.key] > 20 ? '...' : ''}} </a>
+							<ng-template #elseBlock> {{ value[key.key] | limitTo: 20 }}{{value[key.key] > 20 ? '...' : ''}} </ng-template>
+						</span>
+					</td>
+				</ng-container>
+				<td> </td>
+			</tr>
+		</tbody>
+	</table>
+
+	<!-- No Data Found -->
+	<div class="text-center" *ngIf="json.length==0">
+		<b> No Data Found </b>
+	</div>
+</div>
+
+<!-- Pagination for table -->
+<app-pagination #paginationComponent [tableArray]="json" [pages]="pages" (eventShowTable)="showTable=$event" (eventStart)="start=$event"
+	(eventEnd)="end=$event" (eventCurrentPage)="currentPage=$event">
+
+</app-pagination>
+
+<!--<div class="row">
+    <div class="well well-sm">
+        <div class="row">
+            <div class="col-md-4 col-xs-6">
+                Pagination control at the bottom of table 
+                <pagination-controls id={{uniqueId}} (pageChange)="q = $event"></pagination-controls>
+
+                 Selecting the number of items need to be visible in the screen at a time 
+                <select class="form-control pagination-page" [(ngModel)]="itemsPerPage">
+                <option value="5">5 Items</option>
+                <option value="10">10 Items</option>
+                <option value="20">20 Items</option>
+                <option value="50">50 Items</option>
+            </select>
+            </div>
+        </div>
+    </div>
+</div>-->

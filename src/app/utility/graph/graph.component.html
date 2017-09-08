@@ -1,0 +1,27 @@
+
+  <div class="card col-md-6 col-xs-12" id="hei">
+<h3>Collateral schedules </h3>
+    <canvas baseChart class="bar"
+            [data]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barOptions"
+            [legend]="barChartLegend"
+            [chartType]="barChartType"
+            [colors]="barChartColors"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas>
+</div>
+  <div class="card col-md-6 col-xs-12" id="hei">
+    <h3>Collateral schedules </h3>
+   <canvas baseChart class="pie"
+          [data]="pieChartData"
+          [labels]="pieChartLabels"
+           [options]="pieOptions"
+          [chartType]="pieChartType"
+          [colors]="pieChartColors"
+         [legend]="pieChartLegend"
+        
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+</div>
+

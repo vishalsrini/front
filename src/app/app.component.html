@@ -1,0 +1,16 @@
+<div class="wrapper">
+    <div *ngIf="notLoggedIn()">
+        <div class="sidebar" data-background-color="white" data-active-color="danger">
+            <sidebar-cmp></sidebar-cmp>
+        </div>
+    </div>
+    <div ngClass="{{notLoggedIn()?'main-panel':'main-panel main-panel-delete'}}">
+        <navbar-cmp *ngIf="notLoggedIn()"></navbar-cmp>
+        <div class="content">
+            <alert></alert>
+            <router-outlet></router-outlet>
+        </div>
+        <footer-cmp></footer-cmp>
+    </div>
+</div>
+<!--<fixedplugin-cmp></fixedplugin-cmp>-->

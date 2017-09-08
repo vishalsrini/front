@@ -1,0 +1,10 @@
+ <div class="col-md-12 col-xs-12" id="hei">
+    <h3>Favorite Lenders </h3>
+  <canvas baseChart class="doughnut"
+              [data]="doughnutChartData"
+              [labels]="doughnutChartLabels"
+              [chartType]="doughnutChartType"
+              [colors]="doughnutChartColors"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"></canvas>
+</div>
