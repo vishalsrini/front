@@ -9,11 +9,16 @@ declare var $:any;
 })
 
 export class AppComponent{
+    change: Boolean;
   notLoggedIn() {
         if(localStorage.getItem('currentUser')) {
             // logged in so return true
             return true;
         }
         return false;
+    }
+
+    sideBarChange(event) {
+        this.change = event;
     }
 }

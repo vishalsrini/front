@@ -21,7 +21,7 @@ export class RawOffers implements OnInit{
     negotiate: Negotiate;
 
     constructor(private service: MainServiceComponent) {
-
+        this.negotiate = new Negotiate();
     }
 
     ngOnInit() {

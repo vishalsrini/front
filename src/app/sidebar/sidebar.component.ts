@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 declare var $:any;
@@ -29,6 +29,8 @@ export const ROUTES: RouteInfo[] = [
 
 export class SidebarComponent implements OnInit {
     public menuItems: any[];
+    smallSidebar: Boolean;
+    @Output() event : EventEmitter<Boolean> = new EventEmitter<Boolean>();
 
     constructor(private router: Router) {
         
@@ -43,7 +45,15 @@ export class SidebarComponent implements OnInit {
         }
         return true;
     }
+
     logout() {
         this.router.navigate(['/login']);
+    }
+
+    minimizeSidebar() {
+        if(!this.isNotMobileMenu()) {
+            this.smallSidebar = !this.smallSidebar;
+            this.event.emit(this.smallSidebar);
+        }
     }
 }

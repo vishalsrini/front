@@ -55,3 +55,15 @@
     background: black;
     z-index: 999;
 }
+
+.smallBar {
+    width: 80px !important;
+}
+
+.smallBar ul li {
+        min-height: 50px !important;
+}
+
+.changePanelWidth {
+    width: calc(100% - 80px);
+}

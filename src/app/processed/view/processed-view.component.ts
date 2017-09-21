@@ -20,7 +20,7 @@ export class ProcessedView {
     negotiate: Negotiate;
 
     constructor(private service: MainServiceComponent) {
-
+        this.negotiate = new Negotiate();
     }
 
     ngOnInit() {
@@ -54,7 +54,7 @@ export class ProcessedView {
     getOffer() {
         this.service.getProcessedOffer().subscribe(response => {
             console.log(response);
-            this.offers = response.raw;
+            this.offers = response.processed;
         })
     }
 
@@ -62,7 +62,7 @@ export class ProcessedView {
     getRequirement() {
         this.service.getProcessedRequirement().subscribe(response => {
             console.log(response);
-            this.offers = response.raw;
+            this.offers = response.processed;
         })
     }
 

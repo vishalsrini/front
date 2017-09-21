@@ -1,11 +1,11 @@
 
-<div class="sidebar-wrapper">
+<div ngClass="{{smallSidebar?'sidebar-wrapper smallBar':'sidebar-wrapper'}}">
     <div class="logo">
-        <a href="http://www.apaarr.com" class="simple-text">
-            <div class="logo-img">
-                <img src="https://media.licdn.com/mpr/mpr/shrink_200_200/AAEAAQAAAAAAAAngAAAAJDZkYjgyMWU0LTQ1NWEtNDNiNC1hZmU5LWEzODk1OWU0ODVhOA.png" alt="">
+        <a class="simple-text">
+            <div class="logo-img" (click)="minimizeSidebar()">
+                <img src="assets/img/logo.png" alt="">
             </div>
-            APAARR
+            {{smallSidebar?' ':'APAARR'}}
         </a>
     </div>
     <ul class="nav">
@@ -40,7 +40,7 @@
         <li *ngFor="let menuItem of menuItems" routerLinkActive="active" class="{{menuItem.class}}">
             <a [routerLink]="[menuItem.path]">
                 <i class="{{menuItem.icon}}"></i>
-                <p>{{menuItem.title}}</p>
+                <p>{{smallSidebar?' ':menuItem.title}}</p>
             </a>
         </li>
     </ul>

@@ -18,6 +18,9 @@
                             <img src="assets/img/cashew.jpg" alt={{offer.origin}}/>
                         </div>
                         <div class="content text-center">
+                            <div *ngIf="edit" class="col-md-12 col-xs-12">
+                                <img class="pull-left" [src]="offer.status=='inProgress'?'assets/img/stopwatch.svg':offer.status=='approved'?'assets/img/approved-signal.svg':'assets/img/x-button.svg'" [style.width]="(offer.expand?'5':'10') + '%'"> <span class="pull-right label" ngClass="{{offer.status=='approved'?'label-success':offer.status=='inProgress'?'label-primary':'label-danger'}}"> {{offer.status}} </span>
+                            </div>
                             <!-- Origin, Year, Nut Count, Quantity, Shipment, FOB, CIF -->
                             <div ngClass="{{offer.expand?'col-md-2 col-xs-6 text-right':'col-md-6 col-xs-6 text-right'}}">
                                 Origin <br> Processed At <br> Type <br> Quantity <br> Shipment
@@ -65,7 +68,7 @@
                                     <h5>
                                         <button class="btn btn-sm btn-primary" *ngIf="!offer.expand" (click)="offer.expand = true"> Show More </button>
                                         <button class="btn btn-sm btn-primary" *ngIf="offer.expand" (click)="offer.expand = false"> Show Less </button>
-                                        <button class="btn btn-sm btn-success" *ngIf="offer.expand && !edit" (click)="negotiate(offer._id)"> Negotiate </button>
+                                        <button class="btn btn-sm btn-success" *ngIf="offer.expand && !edit" (click)="negotiateItem(offer._id, off?'offer':'requirement')"> Negotiate </button>
                                         <button class="btn btn-sm btn-danger" *ngIf="offer.expand && edit" (click)="editmethod(off?'offer':'requirement', offer)"> Edit </button>
                                     </h5>
                                 </div>
