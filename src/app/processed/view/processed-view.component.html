@@ -15,7 +15,7 @@
                 <div ngClass="{{offer.expand?'col-md-12 col-xs-12':'col-md-4 col-xs-12'}}" *ngFor="let offer of offers">
                     <div class="card card-user">
                         <div class="image" *ngIf="off">
-                            <img src="assets/img/cashew.jpg" alt={{offer.origin}}/>
+                            <img [src]="'data:image/jpg;base64,'+offer.image" alt={{offer.origin}}/>
                         </div>
                         <div class="content text-center">
                             <div *ngIf="edit" class="col-md-12 col-xs-12">

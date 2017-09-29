@@ -13,11 +13,13 @@ declare var $: any;
 })
 export class ProcessedPost {
     @ViewChild('childModal') public childModal: ModalDirective;
+    private base64textString:String="";
     header: String = '';
     work: String;
     quote: ProcessedCashewSchema;
     step: Number = 1;
     editBoolean: Boolean;
+    image: any;
 
     constructor(private _service: MainServiceComponent) {
         this.quote = new ProcessedCashewSchema();
@@ -55,11 +57,32 @@ export class ProcessedPost {
         this.childModal.show();
     }
 
+    handleFileSelect(evt){
+      var files = evt.target.files;
+      var file = files[0];
+    
+    if (files && file) {
+        var reader = new FileReader();
+
+        reader.onload =this._handleReaderLoaded.bind(this);
+
+        reader.readAsBinaryString(file);
+    }
+  }
+  
+  _handleReaderLoaded(readerEvt) {
+     var binaryString = readerEvt.target.result;
+            this.base64textString= btoa(binaryString);
+            console.log(btoa(binaryString));
+    }
+
+
     save() {
         if(this.editBoolean) {
             this.update();
         } else if (this.work == 'offer') {
             console.log('Quotation : ', JSON.stringify(this.quote));
+            this.quote['image'] = this.base64textString;
             this._service.postProcessedOffers(this.quote).subscribe(data => {
                 console.log('Response : ', JSON.stringify(data));
             })
@@ -75,6 +98,7 @@ export class ProcessedPost {
     update() {
         if (this.work == 'offer') {
             let id = this.quote._id;
+            this.quote['image'] = this.base64textString;
             let quotation = this.quote;
             console.log('Quotation : ', JSON.stringify(quotation));
             this._service.postProcessedOffer(id, quotation).subscribe(data => {
