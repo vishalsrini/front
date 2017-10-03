@@ -1,4 +1,4 @@
-    <div class="container-fluid">
+    <div class="container-fluid" *ngIf="user">
         <div class="row">
             <div class="col-lg-4 col-md-5">
                 <div class="card card-user">
@@ -7,7 +7,7 @@
                     </div>
                     <div class="content">
                         <div class="author">
-                          <img class="avatar border-white" src="assets/img/faces/face-0.jpg" alt={{user.name}}/>
+                          <img [src]="user.image" class="avatar border-white" alt={{user.name}}/>
                           <h4 class="title">{{user.name}}<br />
                              <a href="#"><small>{{user.username}}</small></a>
                           </h4>

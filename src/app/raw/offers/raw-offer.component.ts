@@ -24,16 +24,22 @@ export class RawOffers implements OnInit{
         this.negotiate = new Negotiate();
     }
 
-    ngOnInit() {
-        this.getOffers();
+     ngOnInit() {
+        this.changes();
+        // this.ngOnChanges();
+        // this.getOffers();
     }
 
-    ngOnChanges() {
+    changes() {
         if(this.edit) {
             this.getOffer();
         } else {
             this.getOffers();
         }
+    }
+
+    ngOnChanges() {
+        this.changes();
     }
 
     getOffers() {

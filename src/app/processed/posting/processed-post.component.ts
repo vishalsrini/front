@@ -13,7 +13,7 @@ declare var $: any;
 })
 export class ProcessedPost {
     @ViewChild('childModal') public childModal: ModalDirective;
-    private base64textString:String="";
+    private base64textString: String = "";
     header: String = '';
     work: String;
     quote: ProcessedCashewSchema;
@@ -57,28 +57,26 @@ export class ProcessedPost {
         this.childModal.show();
     }
 
-    handleFileSelect(evt){
-      var files = evt.target.files;
-      var file = files[0];
-    
-    if (files && file) {
-        var reader = new FileReader();
+    handleFileSelect(evt) {
+        var files = evt.target.files;
+        var file = files[0];
 
-        reader.onload =this._handleReaderLoaded.bind(this);
-
-        reader.readAsBinaryString(file);
+        if (files && file) {
+            var reader = new FileReader();
+            reader.onload = this._handleReaderLoaded.bind(this);
+            reader.readAsBinaryString(file);
+        }
     }
-  }
-  
-  _handleReaderLoaded(readerEvt) {
-     var binaryString = readerEvt.target.result;
-            this.base64textString= btoa(binaryString);
-            console.log(btoa(binaryString));
+
+    _handleReaderLoaded(readerEvt) {
+        var binaryString = readerEvt.target.result;
+        this.base64textString = btoa(binaryString);
+        console.log(btoa(binaryString));
     }
 
 
     save() {
-        if(this.editBoolean) {
+        if (this.editBoolean) {
             this.update();
         } else if (this.work == 'offer') {
             console.log('Quotation : ', JSON.stringify(this.quote));
@@ -107,7 +105,7 @@ export class ProcessedPost {
         } else if (this.work == 'req') {
             let id = this.quote._id;
             let quotation = this.quote;
-            console.log('Requirement Quotation: ', JSON.stringify(quotation)); 
+            console.log('Requirement Quotation: ', JSON.stringify(quotation));
             this._service.postProcessedRequirement(id, quotation).subscribe(data => {
                 console.log('Response of Requirement : ', JSON.stringify(data));
             })

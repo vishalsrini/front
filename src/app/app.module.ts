@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { EmailValidator } from '@angular/forms';
 
 // ng2-bootstrap controls import
 import { TabsModule } from 'ng2-bootstrap/tabs';
@@ -125,10 +126,11 @@ import { MainServiceComponent } from './service/main-service.component';
     Ng2PaginationModule,
     Ng2OrderModule, // For sorting purpose
     BsDropdownModule.forRoot(), // For dropdown
-    TooltipModule.forRoot(), // For tooltip
+    TooltipModule.forRoot() // For tooltip
 
   ],
   providers: [
+    EmailValidator,
     customHttpProvider,
     AuthGuard,
     AlertService,
