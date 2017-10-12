@@ -8,11 +8,11 @@ window.resize = (function () {
 
 	Resize.prototype = {
 
-		init: function(outputQuality) {
+		init: function (outputQuality) {
 			this.outputQuality = (outputQuality === 'undefined' ? 0.8 : outputQuality);
 		},
 
-		photo: function(file, maxSize, outputType, callback) {
+		photo: function (file, maxSize, outputType, callback) {
 
 			var _this = this;
 
@@ -24,7 +24,7 @@ window.resize = (function () {
 
 		},
 
-		resize: function(dataURL, maxSize, outputType, callback) {
+		resize: function (dataURL, maxSize, outputType, callback) {
 
 			var _this = this;
 
@@ -57,7 +57,7 @@ window.resize = (function () {
 
 		},
 
-		output: function(canvas, outputType, callback) {
+		output: function (canvas, outputType, callback) {
 
 			switch (outputType) {
 

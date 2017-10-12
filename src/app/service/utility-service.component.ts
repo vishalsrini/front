@@ -11,13 +11,13 @@ export class UtilityService {
 
     // Showing Loader
     showLoader() {
-        // console.log("Inside show");
+        console.log("Inside show");
         this._loader.next(true);
     }
 
     // Hiding Loader
     hideLoader() {
-        // console.log("Inside hide");
+        console.log("Inside hide");
         this._loader.next(false);
     }
     /****** Loading Service Ends ******/

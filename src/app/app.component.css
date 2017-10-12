@@ -1,7 +1,7 @@
 .main-panel-delete {
     float: none !important;
     width: auto !important;
-    background-image:url('http://localhost:4200/assets/img/cashew2.jpg') !important;
+    background-image:url('../assets/img/cashew2.jpg') !important;
     background-repeat: no-repeat;
     background-size: cover;
 }

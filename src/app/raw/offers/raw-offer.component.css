@@ -8,14 +8,14 @@
 }
 
 .floating-action-button { 
-    z-index: 998; 
+    z-index: 1; 
     position: fixed; 
     bottom: 30px; 
     right: 20px;
 }
 
 .floating-action-button-left {
-    z-index: 998; 
+    z-index: 1; 
     position: fixed; 
     bottom: 30px; 
     left: 0px; 

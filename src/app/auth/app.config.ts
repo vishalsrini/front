@@ -1,3 +1,3 @@
 export const appConfig = {
-    apiUrl: 'http://localhost:3000'
+    apiUrl: 'http://172.24.32.54:3000'
 };

@@ -101,6 +101,8 @@ export class ProcessedView {
     }
 
     processedCashewPost(type) {
+        // Show the backdrop
+        // $('<div class="modal-backdrop"></div>').appendTo(document.body);
         if(type == 'offer') {
             this.processedPost.alert('offer');
         } else if(type == 'requirement') {
