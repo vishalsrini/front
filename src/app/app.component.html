@@ -1,6 +1,6 @@
 <div class="wrapper">
     <div *ngIf="notLoggedIn()">
-        <div class="sidebar" data-background-color="white" data-active-color="danger">
+        <div ngClass="{{change?'sideChange':''}}" class="sidebar" data-background-color="white" data-active-color="danger">
             <sidebar-cmp (event)="sideBarChange($event)"></sidebar-cmp>
         </div>
     </div>

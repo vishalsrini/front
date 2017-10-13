@@ -7,9 +7,17 @@
     width: 50px !important;
 }
 
- .modal-backdrop {
-    z-index: 1 !important;
-} 
+@media screen and (max-width: 800px) {
+    .modal-backdrop {
+        z-index: -1 !important;
+    } 
+}
+
+@media screen and (min-width: 800px) {
+    .modal-backdrop {
+        z-index: 1 !important;
+    } 
+}
 
 .green {
     color: green;
@@ -78,7 +86,7 @@
 
 /** Scroll bar **/
 body::-webkit-scrollbar {
-    width: 1em;
+    width: 0em;
 }
  
 body::-webkit-scrollbar-track {
@@ -91,6 +99,6 @@ body::-webkit-scrollbar-thumb {
 }
 
 /** Side Bar **/
-.sidebar, .off-canvas-sidebar {
+.sideChange {
     width: auto !important;
 }
