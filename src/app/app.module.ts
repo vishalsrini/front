@@ -73,6 +73,8 @@ import { RawPost } from './raw/posting/raw-posting.component';
 import { Requirements } from './dashboard/requirements/req.component';
 import { ProcessedView } from './processed/view/processed-view.component';
 import { ProcessedPost } from './processed/posting/processed-post.component';
+import { ActivateComponent } from './auth/activate/activate.component';
+
 
 import { MainServiceComponent } from './service/main-service.component';
 
@@ -95,6 +97,7 @@ import { MainServiceComponent } from './service/main-service.component';
     Requirements,
     ProcessedView,
     ProcessedPost,
+    ActivateComponent,
 
     /** All Utility Components below this **/
     AlertComponentU, // displaying Alert Messages

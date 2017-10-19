@@ -12,6 +12,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { RawOffers } from './raw/offers/raw-offer.component';
 import { ProcessedView } from './processed/view/processed-view.component';
+import { ActivateComponent } from './auth/activate/activate.component';
 
 
 import { AuthGuard } from './auth/_guards/auth.guard';
@@ -70,5 +71,9 @@ export const AppRoutes: Routes = [
     { 
         path: 'register', 
         component: RegisterComponent 
+    },
+    {
+        path: 'activate/:id',
+        component: ActivateComponent
     }
 ]

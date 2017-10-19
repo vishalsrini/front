@@ -174,3 +174,8 @@ body::-webkit-scrollbar-thumb {
     }
 }
 /**********************************************************/
+
+.navbar .navbar-nav > li > a.btn-primary, .btn-primary {
+    border-color: #283593 !important;
+    color: #283593 !important;
+}

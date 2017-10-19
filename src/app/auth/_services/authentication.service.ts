@@ -20,6 +20,13 @@ export class AuthenticationService {
                 return user;
             });
     }
+
+    activate(username: string, password: string, id: string) {
+        return this.http.post('/users/activate/'+id, { username: username, password: password })
+            .map((response: Response) => {
+                return response.json();
+            })
+    }
  
     logout() {
         // remove user from local storage to log user out
