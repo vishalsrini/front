@@ -1,3 +1,3 @@
 export const appConfig = {
-    apiUrl: 'http://localhost:3000'
+    apiUrl: 'https://app-apaarr.herokuapp.com'
 };
