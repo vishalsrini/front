@@ -98,7 +98,7 @@
                         <h4 class="title">Edit Profile</h4>
                     </div>
                     <div class="content">
-                        <form>
+                        <form (ngSubmit)="updateUserDetails()">
                             <div class="row">
                                 <div class="col-md-5">
                                     <div class="form-group">
@@ -115,7 +115,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Email address</label>
-                                        <input type="email" class="form-control border-input" placeholder="Email" name="email" [(ngModel)] = "user.username">
+                                        <input type="email" class="form-control border-input" placeholder="Email" name="email" disabled [(ngModel)] = "user.username">
                                     </div>
                                 </div>
                             </div>

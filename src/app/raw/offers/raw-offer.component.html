@@ -1,18 +1,20 @@
-<div class="container" *ngIf="offers">
-    <div class="col-md-12">
+<div class="container">
+    <div class="col-md-12 removePadding">
         <div class="card card-plain">
             <div class="header">
                 <h4 class="title">Raw Cashew {{off?'Offers':'Requirements'}}
                     <a *ngIf="!isNotMobile() && !edit" class="small pull-right" (click)="rawCashewPost(off?'offer':'requirement')"> Post Your {{off?'Offer':'Requirement'}} </a>
                 </h4>
-                <p *ngIf="!isNotMobile()" class="category"> Pick the one you interested in or 
-                    <a *ngIf="!edit" (click)="rawCashewPost(off?'requirement':'offer')"> post your {{off?'requirement':'offer'}} </a>                    
-                    <a *ngIf="!edit" class="small pull-right" (click)="toggle()"> View Existing {{off?'requirements':'offers'}} </a>
+                <p class="category">
+                    <span *ngIf="!edit && !isNotMobile()">Pick the one you interested in or </span>
+                    <span *ngIf="edit"> Existing Quotes </span>
+                    <a *ngIf="!edit && !isNotMobile()" (click)="rawCashewPost(off?'requirement':'offer')"> post your {{off?'requirement':'offer'}} </a>
+                    <a *ngIf="!edit && !isNotMobile()" class="small pull-right" (click)="toggle()"> View Existing {{off?'requirements':'offers'}} </a>
                     <a *ngIf="edit" class="small pull-right" (click)="toggleOnce()"> View Existing {{off?'requirements':'offers'}} </a>
                 </p>
             </div>
-            <div class="content">
-                <div ngClass="{{offer.expand?'col-md-12 col-xs-12':'col-md-4 col-xs-12'}}" *ngFor="let offer of offers">
+            <div class="content" *ngIf="offers.length">
+                <div ngClass="{{offer.expand?'col-md-12 col-xs-12 removePadding':'col-md-4 col-xs-12 removePadding'}}" *ngFor="let offer of offers">
                     <div class="card card-user">
                         <div class="content text-center">
                             <!--<div *ngIf="edit" class="col-md-12 col-xs-12">
@@ -29,7 +31,7 @@
                                     <tr>
                                         <td>Year of crop</td>
                                         <td> {{offer.year}} </td>
-                                    </tr>    
+                                    </tr>
                                     <tr>
                                         <td>Nut Count</td>
                                         <td>{{offer.nutCount}}</td>
@@ -61,7 +63,7 @@
                                     <tr>
                                         <td>Defective</td>
                                         <td> {{offer.defective}}% </td>
-                                    </tr>    
+                                    </tr>
                                     <tr>
                                         <td>Moisture</td>
                                         <td>{{offer.moisture}}%</td>
@@ -93,7 +95,7 @@
                                     <tr>
                                         <td>Loading</td>
                                         <td> {{offer.loading}} </td>
-                                    </tr>    
+                                    </tr>
                                     <tr>
                                         <td>Inspection</td>
                                         <td>{{offer.inspection}}</td>
@@ -141,6 +143,10 @@
                     </div>
                 </div>
             </div>
+            <div class="content" *ngIf="!offers.length">
+                No data found. <span *ngIf="edit"> Post Something to view here </span>
+                <span *ngIf="!edit"> Will get something for you shortly </span>
+            </div>
         </div>
     </div>
     <div *ngIf="!edit" class="btn-group dropup floating-action-button">
@@ -153,8 +159,5 @@
             <li><a class="btn btn-primary text-default" (click)="toggle()"> View Existing  {{off?'Requirements':'Offers'}}</a></li>
         </ul>
     </div>
-</div>
-<div *ngIf="!offers">
-    No data found
 </div>
 <raw-post #rawPost> </raw-post>

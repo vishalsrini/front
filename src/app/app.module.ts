@@ -117,7 +117,7 @@ import { MainServiceComponent } from './service/main-service.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(AppRoutes),
+    RouterModule.forRoot(AppRoutes, {useHash: true}),
     SidebarModule,
     NavbarModule,
     FooterModule,

@@ -7,8 +7,14 @@ import 'rxjs/add/operator/map'
 export class MainServiceComponent {
     constructor(private http: Http) { }
 
+    // gathering user details
     getUserDetails(): Observable<any[]> {
         return this.http.get('/users/currentUser').map((response: Response) => <any[]>response.json());
+    }
+
+    // Updating user details
+    updateUserDetails(userDetails): Observable<any> {
+        return this.http.post('/users/updateUser', userDetails).map(response => <any>response.json());
     }
 
     // Raw Cashew 

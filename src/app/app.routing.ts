@@ -35,35 +35,35 @@ export const AppRoutes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: 'table',
+        path: 'raw',
         component: RawOffers, 
         canActivate: [AuthGuard]
     },
     {
-        path: 'typography',
+        path: 'processed',
         component: ProcessedView, 
         canActivate: [AuthGuard]
     },
-    {
-        path: 'icons',
-        component: IconsComponent, 
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'maps',
-        component: MapsComponent, 
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'notifications',
-        component: NotificationsComponent, 
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'upgrade',
-        component: UpgradeComponent, 
-        canActivate: [AuthGuard]
-    },
+    // {
+    //     path: 'icons',
+    //     component: IconsComponent, 
+    //     canActivate: [AuthGuard]
+    // },
+    // {
+    //     path: 'maps',
+    //     component: MapsComponent, 
+    //     canActivate: [AuthGuard]
+    // },
+    // {
+    //     path: 'notifications',
+    //     component: NotificationsComponent, 
+    //     canActivate: [AuthGuard]
+    // },
+    // {
+    //     path: 'upgrade',
+    //     component: UpgradeComponent, 
+    //     canActivate: [AuthGuard]
+    // },
     { 
         path: 'login', 
         component: LoginComponent 
@@ -75,5 +75,10 @@ export const AppRoutes: Routes = [
     {
         path: 'activate/:id',
         component: ActivateComponent
+    },
+    {
+        path: '**',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
     }
 ]
