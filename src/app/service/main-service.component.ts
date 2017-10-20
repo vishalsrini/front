@@ -28,15 +28,15 @@ export class MainServiceComponent {
         return this.http.get('/req/users').map((response: Response) => <any>response.json());
     }
 
-    postRawOffers(offer): Observable<any[]> {
+    postRawOffers(offer): Observable<any> {
         return this.http.post('/offers/raw', offer).map((response: Response) => <any[]>response.json());
     }
 
-    postRawRequirements(req): Observable<any[]> {
+    postRawRequirements(req): Observable<any> {
         return this.http.post('/req/raw', req).map((response: Response) => <any[]>response.json());
     }
 
-    postRawOffer(id, offer): Observable<any[]> {
+    postRawOffer(id, offer): Observable<any> {
         delete offer.status;
         delete offer._id;
         delete offer.updatedAt;
@@ -46,7 +46,7 @@ export class MainServiceComponent {
         return this.http.put('/offers/raw/'+id, offer).map((response: Response) => <any[]>response.json());
     }
 
-    postRawRequirement(id, req): Observable<any[]> {
+    postRawRequirement(id, req): Observable<any> {
         delete req.status;
         delete req._id;
         delete req.updatedAt;
@@ -73,15 +73,15 @@ export class MainServiceComponent {
         return this.http.get('/req/users').map((response: Response) => <any>response.json());
     }
 
-    postProcessedOffers(offer): Observable<any[]> {
+    postProcessedOffers(offer): Observable<any> {
         return this.http.post('/offers/processed', offer).map((response: Response) => <any[]>response.json());
     }
 
-    postProcessedRequirements(req): Observable<any[]> {
+    postProcessedRequirements(req): Observable<any> {
         return this.http.post('/req/processed', req).map((response: Response) => <any[]>response.json());
     }
 
-    postProcessedOffer(id, offer): Observable<any[]> {
+    postProcessedOffer(id, offer): Observable<any> {
         delete offer.status;
         delete offer._id;
         delete offer.updatedAt;
@@ -91,7 +91,7 @@ export class MainServiceComponent {
         return this.http.put('/offers/processed/'+id, offer).map((response: Response) => <any[]>response.json());
     }
 
-    postProcessedRequirement(id, req): Observable<any[]> {
+    postProcessedRequirement(id, req): Observable<any> {
         delete req.status;
         delete req._id;
         delete req.updatedAt;
@@ -101,7 +101,7 @@ export class MainServiceComponent {
         return this.http.put('/req/processed/'+id, req).map((response: Response) => <any[]>response.json());
     }
 
-    postNegotiation(negotiate): Observable<any[]> {
+    postNegotiation(negotiate): Observable<any> {
         return this.http.post('/negotiate', negotiate).map((response)=> <any>response.json());
     }
 }

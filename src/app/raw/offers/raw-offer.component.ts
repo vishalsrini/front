@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { MainServiceComponent } from '../../service/main-service.component';
 import { Negotiate } from '../../models/negotiate';
+import { UtilityService } from '../../service/utility-service.component';
+import { AlertService } from '../../auth/_services/alert.service';
 
 declare var $:any;
 
@@ -20,7 +22,8 @@ export class RawOffers implements OnInit{
     // For negotiation
     negotiate: Negotiate;
 
-    constructor(private service: MainServiceComponent) {
+    constructor(private service: MainServiceComponent, private _utility: UtilityService,
+        private _alert: AlertService) {
         this.negotiate = new Negotiate();
     }
 
@@ -117,11 +120,14 @@ export class RawOffers implements OnInit{
     }
 
     negotiateItem(id, from) {
+        this._utility.showLoader();
         this.negotiate.type  = 'raw';
         this.negotiate.from = from;
         this.negotiate.negotiateId = id;
         this.service.postNegotiation(this.negotiate).subscribe(res => {
             console.log(JSON.stringify(res));
+            this._utility.hideLoader();
+            this._alert.success(res.message);
         })
     }
 }

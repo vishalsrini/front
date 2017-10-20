@@ -4,6 +4,7 @@ import { ModalDirective } from 'ng2-bootstrap/modal';
 import { ProcessedCashewSchema } from '../../models/processed';
 import { MainServiceComponent } from '../../service/main-service.component';
 import { UtilityService } from '../../service/utility-service.component';
+import { AlertService } from '../../auth/_services/alert.service';
 
 declare var $: any;
 declare var window;
@@ -23,7 +24,8 @@ export class ProcessedPost {
     editBoolean: Boolean;
     image: any;
 
-    constructor(private _service: MainServiceComponent, private _utility: UtilityService) {
+    constructor(private _service: MainServiceComponent, private _utility: UtilityService,
+            private _alert: AlertService) {
         this.quote = new ProcessedCashewSchema();
     }
 
@@ -90,6 +92,7 @@ export class ProcessedPost {
 
 
     save() {
+        this._utility.showLoader();
         if (this.editBoolean) {
             this.update();
         } else if (this.work == 'offer') {
@@ -97,11 +100,19 @@ export class ProcessedPost {
             this.quote['image'] = this.base64textString;
             this._service.postProcessedOffers(this.quote).subscribe(data => {
                 console.log('Response : ', JSON.stringify(data));
+                this._alert.success(data.message);
+                this.hideChildModal();
+            }).add(response => {
+                this._utility.hideLoader();
             })
         } else if (this.work == 'req') {
             console.log('Requirement Quotation: ', JSON.stringify(this.quote));
             this._service.postProcessedRequirements(this.quote).subscribe(data => {
                 console.log('Response of Requirement : ', JSON.stringify(data));
+                this._alert.success(data.message);
+                this.hideChildModal();
+            }).add(response => {
+                this._utility.hideLoader();
             })
         }
 
@@ -114,9 +125,10 @@ export class ProcessedPost {
             let quotation = this.quote;
             console.log('Quotation : ', JSON.stringify(quotation));
 
-            this._utility.showLoader();
             this._service.postProcessedOffer(id, quotation).subscribe(data => {
                 console.log('Response : ', JSON.stringify(data));
+                this._alert.success(data.message);
+                this.hideChildModal();
             }).add(response => {
                 this._utility.hideLoader();
             })
@@ -125,11 +137,13 @@ export class ProcessedPost {
             let quotation = this.quote;
             console.log('Requirement Quotation: ', JSON.stringify(quotation));
 
-            this._utility.showLoader();
             this._service.postProcessedRequirement(id, quotation).subscribe(data => {
                 console.log('Response of Requirement : ', JSON.stringify(data));
+                this._alert.success(data.message);
+                this.hideChildModal();
             }).add(response => {
                 this._utility.hideLoader();
+                
             })
         }
 

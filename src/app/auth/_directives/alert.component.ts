@@ -5,36 +5,40 @@ import { AlertService } from '../_services/alert.service';
 declare var $: any;
 
 @Component({
-        moduleId: module.id,
-        selector: 'alert',
-        templateUrl: 'alert.component.html'
+    moduleId: module.id,
+    selector: 'alert',
+    templateUrl: 'alert.component.html'
 })
 
 export class AlertComponent {
-        message: any;
+    message: any;
 
-        constructor(private alertService: AlertService) { }
+    constructor(private alertService: AlertService) { }
 
-        ngOnInit() {
-                this.alertService.getMessage().subscribe(message => {
+    ngOnInit() {
+        this.alertService.getMessage().subscribe(message => {
 
-            var color = 'danger';
+            var type = ['info', 'success', 'warning', 'danger'];
+
+            var color = type[Math.floor((Math.random() * 3) + 1)];
+
+            // var color = 'danger';
             if (message) {
                 $.notify({
                     icon: "ti-gift",
-                    message: JSON.stringify(message)
+                    message: JSON.stringify(message.text)
                 }, {
                         type: color,
                         timer: 4000,
                         placement: {
                             from: 'top',
-                            align: 'center'
+                            align: 'right'
                         }
                     });
-                }
-            });
+            }
+        });
 
-        }
+    }
 
 
 }

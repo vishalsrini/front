@@ -2,7 +2,10 @@ import { Component, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap/modal';
 
 import { RawCashewSchema } from '../../models/raw';
+
 import { MainServiceComponent } from '../../service/main-service.component';
+import { UtilityService } from '../../service/utility-service.component';
+import { AlertService } from '../../auth/_services/alert.service';
 
 declare var $: any;
 
@@ -19,7 +22,8 @@ export class RawPost {
     step: Number = 1;
     editBoolean: Boolean;
 
-    constructor(private _service: MainServiceComponent) {
+    constructor(private _service: MainServiceComponent, private _utility: UtilityService,
+            private _alert: AlertService) {
         this.quote = new RawCashewSchema();
     }
 
@@ -56,17 +60,26 @@ export class RawPost {
     }
 
     save() {
+        this._utility.showLoader();
         if(this.editBoolean) {
             this.update();
         } else if (this.work == 'offer') {
             console.log('Quotation : ', JSON.stringify(this.quote));
             this._service.postRawOffers(this.quote).subscribe(data => {
                 console.log('Response : ', JSON.stringify(data));
+                this._alert.success(data.message);
+            }).add(response => {
+                this._utility.hideLoader();
+                this.hideChildModal();
             })
         } else if (this.work == 'req') {
             console.log('Requirement Quotation: ', JSON.stringify(this.quote));
             this._service.postRawRequirements(this.quote).subscribe(data => {
                 console.log('Response of Requirement : ', JSON.stringify(data));
+                this._alert.success(data.message);
+            }).add(response => {
+                this._utility.hideLoader();
+                this.hideChildModal();
             })
         }
 
@@ -79,6 +92,10 @@ export class RawPost {
             console.log('Quotation : ', JSON.stringify(quotation));
             this._service.postRawOffer(id, quotation).subscribe(data => {
                 console.log('Response : ', JSON.stringify(data));
+                this._alert.success(data.message);
+            }).add(response => {
+                this._utility.hideLoader();
+                this.hideChildModal();
             })
         } else if (this.work == 'req') {
             let id = this.quote._id;
@@ -86,6 +103,10 @@ export class RawPost {
             console.log('Requirement Quotation: ', JSON.stringify(quotation)); 
             this._service.postRawRequirement(id, quotation).subscribe(data => {
                 console.log('Response of Requirement : ', JSON.stringify(data));
+                this._alert.success(data.message);
+            }).add(response => {
+                this._utility.hideLoader();
+                this.hideChildModal();
             })
         }
 

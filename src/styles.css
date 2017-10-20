@@ -7,6 +7,20 @@
     width: 50px !important;
 }
 
+.sidebar, .off-canvas-sidebar {
+    width: 230px;
+}
+
+.sidebar .sidebar-wrapper {
+    width: 230px;
+}
+
+@media screen and (min-width: 800px) {
+    .main-panel {
+        width: calc(100% - 230px);
+    }
+}
+
 @media screen and (max-width: 800px) {
     .modal-backdrop {
         z-index: -1 !important;
@@ -175,7 +189,28 @@ body::-webkit-scrollbar-thumb {
 }
 /**********************************************************/
 
-.navbar .navbar-nav > li > a.btn-primary, .btn-primary {
-    border-color: #283593 !important;
-    color: #283593 !important;
+table.table-grid {
+    width: 100%;
+}
+
+table.table-grid td:first-child {
+    text-align: right;
+    font-weight: bold;
+    padding-right: 10px;
+    width: 50%;
+}
+
+table.table-grid td:last-child {
+    text-align: left;
+    width: 50%;
+}
+
+img {
+    max-width: 95vw;
+}
+
+.small-img {
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
 }

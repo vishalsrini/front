@@ -15,47 +15,111 @@
                 <div ngClass="{{offer.expand?'col-md-12 col-xs-12':'col-md-4 col-xs-12'}}" *ngFor="let offer of offers">
                     <div class="card card-user">
                         <div class="content text-center">
-                            <div *ngIf="edit" class="col-md-12 col-xs-12">
+                            <!--<div *ngIf="edit" class="col-md-12 col-xs-12">
                                 <img class="pull-left" [src]="offer.status=='inProgress'?'assets/img/stopwatch.svg':offer.status=='approved'?'assets/img/approved-signal.svg':'assets/img/x-button.svg'" [style.width]="(offer.expand?'5':'10') + '%'"> <span class="pull-right label" ngClass="{{offer.status=='approved'?'label-success':offer.status=='inProgress'?'label-primary':'label-danger'}}"> {{offer.status}} </span>
-                            </div>
+                            </div>-->
 
                             <!-- Origin, Year, Nut Count, Quantity, Shipment, FOB, CIF -->
-                            <div ngClass="{{offer.expand?'col-md-2 col-xs-6 text-right':'col-md-6 col-xs-6 text-right'}}">
-                                Origin <br> Year Of Crop <br> Nut Count <br> Quantity
-                                <br> Shipment
+                            <div ngClass="{{offer.expand?'col-md-4 col-xs-12':'col-md-12 col-xs-12'}}">
+                                <table class="table-grid">
+                                    <tr>
+                                        <td> Origin </td>
+                                        <td> {{offer.origin}} </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Year of crop</td>
+                                        <td> {{offer.year}} </td>
+                                    </tr>    
+                                    <tr>
+                                        <td>Nut Count</td>
+                                        <td>{{offer.nutCount}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Quantity</td>
+                                        <td>{{offer.quantity}} Kgs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Shipment</td>
+                                        <td>{{offer.shipment}}</td>
+                                    </tr>
+                                </table>
+                                <!--Origin <br> Year Of Crop <br> Nut Count <br> Quantity
+                                <br> Shipment-->
                             </div>
-                            <div ngClass="{{offer.expand?'col-md-2 col-xs-6 text-left':'col-md-6 col-xs-6 text-left'}}">
+                            <!--<div ngClass="{{offer.expand?'col-md-2 col-xs-6 text-left':'col-md-6 col-xs-6 text-left'}}">
                                 {{offer.origin}} <br> {{offer.year}} <br> {{offer.nutCount}} <br> {{offer.quantity}} Kgs
                                 <br> {{offer.shipment}}
-
-                            </div>
+                            </div>-->
 
                             <!-- Out turn, defective, moisture, others -->
-                            <div *ngIf="offer.expand" class="col-md-2 col-xs-6 text-right">
-                                Out-turn <br> Defective <br> Moisture <br> Others <br> FOB
-                                <br>
+                            <div *ngIf="offer.expand" class="col-md-4 col-xs-12">
+                                <table class="table-grid">
+                                    <tr>
+                                        <td> Out-turn </td>
+                                        <td> {{offer.outTurn}}% </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Defective</td>
+                                        <td> {{offer.defective}}% </td>
+                                    </tr>    
+                                    <tr>
+                                        <td>Moisture</td>
+                                        <td>{{offer.moisture}}%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Others</td>
+                                        <td>{{offer.others}}%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>FOB</td>
+                                        <td><i ngClass="{{offer.fob?'ti-check text-primary':'ti-na text-danger'}}"></i></td>
+                                    </tr>
+                                </table>
+                                <!--Out-turn <br> Defective <br> Moisture <br> Others <br> FOB
+                                <br>-->
                             </div>
-                            <div *ngIf="offer.expand" Class="col-md-2 col-xs-6 text-left">
+                            <!--<div *ngIf="offer.expand" Class="col-md-2 col-xs-6 text-left">
                                 {{offer.outTurn}}% <br> {{offer.defective}}% <br> {{offer.moisture}}% <br> {{offer.others}}%
                                 <br> <i ngClass="{{offer.fob?'ti-check text-primary':'ti-na text-danger'}}"></i>
-                            </div>
+                            </div>-->
 
                             <!-- Packing, loading, inspection, landing port -->
-                            <div *ngIf="offer.expand" class="col-md-2 col-xs-6 text-right text-bold">
-                                Packing <br> Loading <br> Inspection <br> Landing Port <br> CIF
-                                <br>
+                            <div *ngIf="offer.expand" class="col-md-4 col-xs-12">
+                                <table class="table-grid">
+                                    <tr>
+                                        <td> Packing </td>
+                                        <td> {{offer.packing}} </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Loading</td>
+                                        <td> {{offer.loading}} </td>
+                                    </tr>    
+                                    <tr>
+                                        <td>Inspection</td>
+                                        <td>{{offer.inspection}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Landing Port</td>
+                                        <td>{{offer.landingPort}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>CIF</td>
+                                        <td><i ngClass="{{offer.cif?'ti-check text-primary':'ti-na text-danger'}}"></i></td>
+                                    </tr>
+                                </table>
+                                <!--Packing <br> Loading <br> Inspection <br> Landing Port <br> CIF
+                                <br>-->
                             </div>
-                            <div *ngIf="offer.expand" class="col-md-2 col-xs-6 text-left">
+                            <!--<div *ngIf="offer.expand" class="col-md-2 col-xs-6 text-left">
                                 {{offer.packing}} <br> {{offer.loading}} <br> {{offer.inspection}} <br> {{offer.landingPort}}
                                 <br> <i ngClass="{{offer.cif?'ti-check text-primary':'ti-na text-danger'}}"></i>
-                            </div>
+                            </div>-->
 
                             <!-- Payment Terms -->
                             <div class="col-md-12 col-xs-12">
                                 <b>Payment Terms </b> : <small> {{offer.paymentTerms}} </small>
                             </div>
                         </div>
-                        <hr>
                         <div class="text-center">
                             <div class="row">
                                 <div ngClass="{{offer.expand?'col-md-4 col-xs-4':'col-md-6 col-xs-6'}}">
@@ -66,10 +130,10 @@
                                 </div>
                                 <div ngClass="{{offer.expand?'col-md-4 col-xs-4':'col-md-6 col-xs-6'}}">
                                     <h5>
-                                        <button class="btn btn-sm btn-primary" *ngIf="!offer.expand" (click)="offer.expand = true"> Show More </button>
-                                        <button class="btn btn-sm btn-primary" *ngIf="offer.expand" (click)="offer.expand = false"> Show Less </button>
-                                        <button class="btn btn-sm btn-success" *ngIf="offer.expand && !edit" (click)="negotiateItem(offer._id, off?'offer':'requirement')"> Negotiate </button>
-                                        <button class="btn btn-sm btn-danger" *ngIf="offer.expand && edit" (click)="editmethod(off?'offer':'requirement', offer)"> Edit </button>
+                                        <i class="ti-arrow-circle-right small-img" *ngIf="!offer.expand" (click)="offer.expand = true"> </i>
+                                        <i class="ti-arrow-circle-left small-img" *ngIf="offer.expand" (click)="offer.expand = false"> </i>
+                                        <button class="btn btn-sm btn-success" *ngIf="!edit" (click)="negotiateItem(offer._id, off?'offer':'requirement')"> Negotiate </button>
+                                        <button class="btn btn-sm btn-danger" *ngIf="edit" (click)="editmethod(off?'offer':'requirement', offer)"> Edit </button>
                                     </h5>
                                 </div>
                             </div>

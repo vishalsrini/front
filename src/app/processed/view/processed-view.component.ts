@@ -1,5 +1,9 @@
 import { Component, Input, ViewChild } from '@angular/core';
+
 import { MainServiceComponent } from '../../service/main-service.component';
+import { UtilityService } from '../../service/utility-service.component';
+import { AlertService } from '../../auth/_services/alert.service';
+
 import { Negotiate } from '../../models/negotiate';
 
 declare var $:any;
@@ -11,15 +15,18 @@ declare var $:any;
 })
 export class ProcessedView {
     @ViewChild('processedPost') processedPost;
+    @ViewChild('modalImage') modalImage;
     @Input() edit;
     off: boolean = true;
     requirements: any[] = [];
     offers: any[] = [];
     search: String;
+    fullImage: Boolean;
     // For negotiation
     negotiate: Negotiate;
 
-    constructor(private service: MainServiceComponent) {
+    constructor(private service: MainServiceComponent, private _utility: UtilityService,
+        private _alert: AlertService) {
         this.negotiate = new Negotiate();
     }
 
@@ -118,11 +125,18 @@ export class ProcessedView {
     }
 
     negotiateItem(id, from) {
+        this._utility.showLoader();
         this.negotiate.type = 'processed';
         this.negotiate.from = from;
         this.negotiate.negotiateId = id;
         this.service.postNegotiation(this.negotiate).subscribe(res => {
-            console.log(JSON.stringify(res));
+            console.log("JSON RESPONSE", JSON.stringify(res));
+            this._utility.hideLoader();
+            this._alert.success(res.message);
         })
+    }
+
+    viewFullScreen(image) {
+        this.modalImage.showChildModal(image);
     }
 }

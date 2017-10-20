@@ -74,6 +74,7 @@ import { Requirements } from './dashboard/requirements/req.component';
 import { ProcessedView } from './processed/view/processed-view.component';
 import { ProcessedPost } from './processed/posting/processed-post.component';
 import { ActivateComponent } from './auth/activate/activate.component';
+import { ModalImage } from './modal-image/modal-image.component';
 
 
 import { MainServiceComponent } from './service/main-service.component';
@@ -98,6 +99,7 @@ import { MainServiceComponent } from './service/main-service.component';
     ProcessedView,
     ProcessedPost,
     ActivateComponent,
+    ModalImage,
 
     /** All Utility Components below this **/
     AlertComponentU, // displaying Alert Messages
