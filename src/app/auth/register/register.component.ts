@@ -45,7 +45,7 @@ export class RegisterComponent {
 
         var files = evt.target.files;
         var file;
-
+ 
         var resize = new window.resize();
         resize.init();
 
