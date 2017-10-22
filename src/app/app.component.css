@@ -1,7 +1,7 @@
 .main-panel-delete {
     float: none !important;
     width: auto !important;
-    background-image:url(../assets/img/background1.jpg) !important;
+    background-image:url("/assets/img/backgroundsmall.jpeg") !important;
     background-repeat: no-repeat;
     background-size: cover;
 }
