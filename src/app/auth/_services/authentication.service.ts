@@ -27,6 +27,27 @@ export class AuthenticationService {
                 return response.json();
             })
     }
+
+    forgotPassword(username: string, password: string, id: string) {
+        return this.http.post('/users/forgotPassword/'+id, { username: username, password: password })
+            .map((response: Response) => {
+                return response.json();
+            })
+    }
+
+    forgot(username: string) {
+        return this.http.post('/users/forgot/', { username: username })
+            .map((response: Response) => {
+                return response.json();
+            })
+    }
+
+    resend(username: string) {
+        return this.http.post('/users/resend/', { username: username })
+            .map((response: Response) => {
+                return response.json();
+            })
+    }
  
     logout() {
         // remove user from local storage to log user out

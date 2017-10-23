@@ -13,6 +13,8 @@ import { RegisterComponent } from './auth/register/register.component';
 import { RawOffers } from './raw/offers/raw-offer.component';
 import { ProcessedView } from './processed/view/processed-view.component';
 import { ActivateComponent } from './auth/activate/activate.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { ForgotComponent } from './auth/forgot-password/forgot/forgot.component';
 
 
 import { AuthGuard } from './auth/_guards/auth.guard';
@@ -75,6 +77,14 @@ export const AppRoutes: Routes = [
     {
         path: 'activate/:id',
         component: ActivateComponent
+    },
+    {
+        path: 'forgot-password/:id',
+        component: ForgotPasswordComponent
+    },
+    {
+        path: 'forgot',
+        component: ForgotComponent
     },
     {
         path: '**',

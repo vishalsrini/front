@@ -75,7 +75,8 @@ import { ProcessedView } from './processed/view/processed-view.component';
 import { ProcessedPost } from './processed/posting/processed-post.component';
 import { ActivateComponent } from './auth/activate/activate.component';
 import { ModalImage } from './modal-image/modal-image.component';
-
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { ForgotComponent } from './auth/forgot-password/forgot/forgot.component';
 
 import { MainServiceComponent } from './service/main-service.component';
 
@@ -100,6 +101,8 @@ import { MainServiceComponent } from './service/main-service.component';
     ProcessedPost,
     ActivateComponent,
     ModalImage,
+    ForgotPasswordComponent,
+    ForgotComponent,
 
     /** All Utility Components below this **/
     AlertComponentU, // displaying Alert Messages
