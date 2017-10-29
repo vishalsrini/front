@@ -121,7 +121,9 @@
 
                             <!-- Payment Terms -->
                             <div class="col-md-12 col-xs-12">
-                                <b>Payment Terms </b> : <small> {{offer.paymentTerms}} </small>
+                                <b>Payment Terms </b> : <small> {{offer.paymentTerms}} </small> <br>
+                                <a *ngIf="!offer.expand" (click)="offer.expand = true"> <small> <i class="ti-arrow-circle-right small-img"> </i> View More </small></a>
+                                <a *ngIf="offer.expand" (click)="offer.expand = false"> <small> <i class="ti-arrow-circle-left small-img"> </i> View Less </small></a>
                             </div>
                         </div>
                         <hr>
@@ -135,8 +137,7 @@
                                 </div>
                                 <div ngClass="{{offer.expand?'col-md-4 col-xs-4':'col-md-6 col-xs-6'}}">
                                     <h5>
-                                        <i class="ti-arrow-circle-right small-img" *ngIf="!offer.expand" (click)="offer.expand = true"> </i>
-                                        <i class="ti-arrow-circle-left small-img" *ngIf="offer.expand" (click)="offer.expand = false"> </i>
+                                   
                                         <button class="btn btn-sm btn-success" *ngIf="!edit" (click)="negotiateItem(offer._id, off?'offer':'requirement')"> Negotiate </button>
                                         <button class="btn btn-sm btn-danger" *ngIf="edit" (click)="editmethod(off?'offer':'requirement', offer)"> Edit </button>
                                     </h5>
