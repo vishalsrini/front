@@ -15,6 +15,7 @@ import { ProcessedView } from './processed/view/processed-view.component';
 import { ActivateComponent } from './auth/activate/activate.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { ForgotComponent } from './auth/forgot-password/forgot/forgot.component';
+import { NegotiationComponent } from './negotiation/negotiation.component';
 
 
 import { AuthGuard } from './auth/_guards/auth.guard';
@@ -44,6 +45,11 @@ export const AppRoutes: Routes = [
     {
         path: 'processed',
         component: ProcessedView, 
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'negotiation',
+        component: NegotiationComponent, 
         canActivate: [AuthGuard]
     },
     // {

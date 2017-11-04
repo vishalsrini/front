@@ -24,6 +24,9 @@ export class ProcessedView {
     fullImage: Boolean;
     // For negotiation
     negotiate: Negotiate;
+    @Input() negotiateView: String = null;
+    @Input() inputView: any[];
+
 
     constructor(private service: MainServiceComponent, private _utility: UtilityService,
         private _alert: AlertService) {
@@ -40,7 +43,19 @@ export class ProcessedView {
         if(this.edit) {
             this.getOffer();
         } else {
-            this.getOffers();
+            if (this.negotiateView == 'offer') {
+                if (this.inputView) {
+                    this.off = true;
+                    this.offers = this.inputView;
+                }
+            } else if (this.negotiateView == 'req') {
+                if (this.inputView) {
+                    this.off = false;
+                    this.offers = this.inputView;
+                }
+            } else {
+                this.getOffers();
+            }
         }
     }
 
@@ -126,10 +141,8 @@ export class ProcessedView {
 
     negotiateItem(id, from) {
         this._utility.showLoader();
-        this.negotiate.type = 'processed';
-        this.negotiate.from = from;
-        this.negotiate.negotiateId = id;
-        this.service.postNegotiation(this.negotiate).subscribe(res => {
+        this.negotiate.negotiatedItemId = id;
+        this.service.postNegotiation(from, 'processed', this.negotiate).subscribe(res => {
             console.log("JSON RESPONSE", JSON.stringify(res));
             this._utility.hideLoader();
             this._alert.success(res.message);

@@ -4,14 +4,14 @@ import { Negotiate } from '../../models/negotiate';
 import { UtilityService } from '../../service/utility-service.component';
 import { AlertService } from '../../auth/_services/alert.service';
 
-declare var $:any;
+declare var $: any;
 
 @Component({
     selector: 'app-raw-offer',
     templateUrl: './raw-offer.component.html',
     styleUrls: ['./raw-offer.component.css']
 })
-export class RawOffers implements OnInit{
+export class RawOffers implements OnInit {
     @ViewChild('rawPost') rawPost;
     @Input() edit;
     off: boolean = true;
@@ -21,28 +21,42 @@ export class RawOffers implements OnInit{
 
     // For negotiation
     negotiate: Negotiate;
+    @Input() negotiateView: String = null;
+    @Input() inputView: any[];
 
     constructor(private service: MainServiceComponent, private _utility: UtilityService,
         private _alert: AlertService) {
         this.negotiate = new Negotiate();
     }
 
-     ngOnInit() {
+    ngOnInit() {
         this.changes();
         // this.ngOnChanges();
         // this.getOffers();
     }
 
-    changes() {
-        if(this.edit) {
-            this.getOffer();
-        } else {
-            this.getOffers();
-        }
-    }
-
     ngOnChanges() {
         this.changes();
+    }
+
+    changes() {
+        if (this.edit) {
+            this.getOffer();
+        } else {
+            if (this.negotiateView == 'offer') {
+                if (this.inputView) {
+                    this.off = true;
+                    this.offers = this.inputView;
+                }
+            } else if (this.negotiateView == 'req') {
+                if (this.inputView) {
+                    this.off = false;
+                    this.offers = this.inputView;
+                }
+            } else {
+                this.getOffers();
+            }
+        }
     }
 
     getOffers() {
@@ -58,7 +72,7 @@ export class RawOffers implements OnInit{
             this.offers = response;
         })
     }
-    
+
 
     /** Getting particular offer */
     getOffer() {
@@ -78,7 +92,7 @@ export class RawOffers implements OnInit{
 
     toggleOnce() {
         this.offers.length = 0;
-        if(this.off) {
+        if (this.off) {
             this.getRequirement();
         } else {
             this.getOffer();
@@ -88,7 +102,7 @@ export class RawOffers implements OnInit{
 
     toggle() {
         this.offers.length = 0;
-        if(this.off) {
+        if (this.off) {
             this.getRequirements();
         } else {
             this.getOffers();
@@ -97,23 +111,23 @@ export class RawOffers implements OnInit{
     }
 
     editmethod(type, offer) {
-        if(type == 'offer') {
+        if (type == 'offer') {
             this.rawPost.edit(type, offer);
-        } else if(type == 'requirement') {
+        } else if (type == 'requirement') {
             this.rawPost.edit(type, offer);
         }
     }
 
     rawCashewPost(type) {
-        if(type == 'offer') {
+        if (type == 'offer') {
             this.rawPost.alert('offer');
-        } else if(type == 'requirement') {
+        } else if (type == 'requirement') {
             this.rawPost.alert('req');
         }
     }
 
-    isNotMobile(){
-        if($(window).width() > 991){
+    isNotMobile() {
+        if ($(window).width() > 991) {
             return false;
         }
         return true;
@@ -121,10 +135,8 @@ export class RawOffers implements OnInit{
 
     negotiateItem(id, from) {
         this._utility.showLoader();
-        this.negotiate.type  = 'raw';
-        this.negotiate.from = from;
-        this.negotiate.negotiateId = id;
-        this.service.postNegotiation(this.negotiate).subscribe(res => {
+        this.negotiate.negotiatedItemId = id;
+        this.service.postNegotiation(from, 'raw', this.negotiate).subscribe(res => {
             console.log(JSON.stringify(res));
             this._utility.hideLoader();
             this._alert.success(res.message);

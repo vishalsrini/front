@@ -77,6 +77,7 @@ import { ActivateComponent } from './auth/activate/activate.component';
 import { ModalImage } from './modal-image/modal-image.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { ForgotComponent } from './auth/forgot-password/forgot/forgot.component';
+import { NegotiationComponent } from './negotiation/negotiation.component';
 
 import { MainServiceComponent } from './service/main-service.component';
 
@@ -103,6 +104,7 @@ import { MainServiceComponent } from './service/main-service.component';
     ModalImage,
     ForgotPasswordComponent,
     ForgotComponent,
+    NegotiationComponent,
 
     /** All Utility Components below this **/
     AlertComponentU, // displaying Alert Messages

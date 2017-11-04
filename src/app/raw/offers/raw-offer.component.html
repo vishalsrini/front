@@ -3,9 +3,9 @@
         <div class="card card-plain">
             <div class="header">
                 <h4 class="title">Raw Cashew {{off?'Offers':'Requirements'}}
-                    <a *ngIf="!isNotMobile() && !edit" class="small pull-right" (click)="rawCashewPost(off?'offer':'requirement')"> Post Your {{off?'Offer':'Requirement'}} </a>
+                    <a *ngIf="!isNotMobile() && !edit && negotiateView == null" class="small pull-right" (click)="rawCashewPost(off?'offer':'requirement')"> Post Your {{off?'Offer':'Requirement'}} </a>
                 </h4>
-                <p class="category">
+                <p class="category" *ngIf="negotiateView == null">
                     <span *ngIf="!edit && !isNotMobile()">Pick the one you interested in or </span>
                     <span *ngIf="edit"> Existing Quotes </span>
                     <a *ngIf="!edit && !isNotMobile()" (click)="rawCashewPost(off?'requirement':'offer')"> post your {{off?'requirement':'offer'}} </a>
@@ -119,7 +119,7 @@
 
                             <!-- Payment Terms -->
                             <div class="col-md-12 col-xs-12">
-                                <b>Payment Terms </b> : <small> {{offer.paymentTerms}} </small>
+                                <b>Payment Terms </b> : <small> {{offer.paymentTerms}} </small> <br>
                                 <a *ngIf="!offer.expand" (click)="offer.expand = true"> <small> <i class="ti-arrow-circle-right small-img"> </i> View More </small></a>
                                 <a *ngIf="offer.expand" (click)="offer.expand = false"> <small> <i class="ti-arrow-circle-left small-img"> </i> View Less </small></a>
                             </div>
@@ -136,8 +136,9 @@
                                     <h5>
                                         <!--<i class="ti-arrow-circle-right small-img" *ngIf="!offer.expand" (click)="offer.expand = true"> </i>
                                         <i class="ti-arrow-circle-left small-img" *ngIf="offer.expand" (click)="offer.expand = false"> </i>-->
-                                        <button class="btn btn-sm btn-success" *ngIf="!edit" (click)="negotiateItem(offer._id, off?'offer':'requirement')"> Negotiate </button>
-                                        <button class="btn btn-sm btn-danger" *ngIf="edit" (click)="editmethod(off?'offer':'requirement', offer)"> Edit </button>
+                                        <span *ngIf="negotiateView!=null" class="text-primary"> {{offer.status}} </span>
+                                        <button class="btn btn-sm btn-success" *ngIf="!edit && negotiateView == null" (click)="negotiateItem(offer._id, off?'offer':'req')"> Negotiate </button>
+                                        <button class="btn btn-sm btn-danger" *ngIf="edit && negotiateView == null" (click)="editmethod(off?'offer':'requirement', offer)"> Edit </button>
                                     </h5>
                                 </div>
                             </div>
@@ -145,13 +146,16 @@
                     </div>
                 </div>
             </div>
-            <div class="content" *ngIf="!offers.length">
+            <div class="content" *ngIf="!offers.length && negotiateView == null">
                 No data found. <span *ngIf="edit"> Post Something to view here </span>
                 <span *ngIf="!edit"> Will get something for you shortly </span>
             </div>
+            <div class="content" *ngIf="!offers.length && negotiateView != null">
+                No Negotiations done so far
+            </div>
         </div>
     </div>
-    <div *ngIf="!edit" class="btn-group dropup floating-action-button">
+    <div *ngIf="!edit && negotiateView == null" class="btn-group dropup floating-action-button">
         <button type="button" class="btn btn-lg btn-primary btn-fill btn-circle dropdown-toggle" ngClass="{{rotate?'rotate':''}}"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="$event.stopPropagation(); rotate=!rotate"><i class="ti-plus text-default"></i>
         </button>
