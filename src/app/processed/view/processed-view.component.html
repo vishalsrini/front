@@ -122,15 +122,15 @@
                             <!-- Payment Terms -->
                             <div class="col-md-12 col-xs-12">
                                 <b>Payment Terms </b> : <small> {{offer.paymentTerms}} </small> <br>
-                                <a *ngIf="!offer.expand" (click)="offer.expand = true"> <small> <i class="ti-arrow-circle-right small-img"> </i> View More </small></a>
-                                <a *ngIf="offer.expand" (click)="offer.expand = false"> <small> <i class="ti-arrow-circle-left small-img"> </i> View Less </small></a>
+                                <a *ngIf="!offer.expand" class="pull-left" (click)="offer.expand = true"> <small> <i class="ti-arrow-circle-right small-img"> </i> View More </small></a>
+                                <a *ngIf="offer.expand" class="pull-left" (click)="offer.expand = false"> <small> <i class="ti-arrow-circle-left small-img"> </i> View Less </small></a>
                             </div>
                         </div>
                         <hr>
                         <div class="text-center">
                             <div class="row">
                                 <div ngClass="{{offer.expand?'col-md-4 col-xs-4':'col-md-6 col-xs-6'}}">
-                                    <h5>Rs. {{offer.price}}<br /><small>Price/Kg</small></h5>
+                                    <h5>{{offer.currency}} {{offer.price}}<br /><small>Price/Kg</small></h5>
                                 </div>
                                 <div *ngIf="offer.expand" class="col-md-4 col-xs-4">
                                     <h5>{{offer.createdAt | date}}<br /><small>Created At</small></h5>

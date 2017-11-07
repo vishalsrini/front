@@ -1,11 +1,12 @@
-<div bsModal #childModal="bs-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div bsModal #childModal="bs-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">{{header}}
                     <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
-          <span aria-hidden="true">&times;</span>
-        </button>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </h4>
             </div>
             <form name="form" (ngSubmit)="f.form.valid && save()" #f="ngForm" novalidate>
@@ -13,9 +14,15 @@
                     <h3>
                         Please Complete Step {{step}}
                         <div *ngIf="!isNotMobile()" class="btn-group pull-right">
-                            <button type="button" ngClass="{{step == 1?'btn btn-sm btn-primary btn-fill':'btn btn-sm btn-default btn-fill'}}" (click)="step = 1"><span class="badge"> 1 </span></button>
-                            <button type="button" ngClass="{{step == 2?'btn btn-sm btn-primary btn-fill':'btn btn-sm btn-default btn-fill'}}" (click)="step = 2"><span class="badge"> 2 </span></button>
-                            <button type="button" ngClass="{{step == 3?'btn btn-sm btn-primary btn-fill':'btn btn-sm btn-default btn-fill'}}" (click)="step = 3"><span class="badge"> 3 </span></button>
+                            <button type="button" ngClass="{{step == 1?'btn btn-sm btn-primary btn-fill':'btn btn-sm btn-default btn-fill'}}" (click)="step = 1">
+                                <span class="badge"> 1 </span>
+                            </button>
+                            <button type="button" ngClass="{{step == 2?'btn btn-sm btn-primary btn-fill':'btn btn-sm btn-default btn-fill'}}" (click)="step = 2">
+                                <span class="badge"> 2 </span>
+                            </button>
+                            <button type="button" ngClass="{{step == 3?'btn btn-sm btn-primary btn-fill':'btn btn-sm btn-default btn-fill'}}" (click)="step = 3">
+                                <span class="badge"> 3 </span>
+                            </button>
                         </div>
                     </h3>
 
@@ -57,11 +64,17 @@
                                             </div>
                                             <div class="col-md-6 col-xs-6">
                                                 <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !price.valid }">
-                                                    <label for="price">Price</label>
+                                                    <label for="price">
+                                                        Price
+                                                        <select class="pull-right" [(ngModel)]="quote.currency" name="currency" #currency="ngModel" required>
+                                                            <option selected value="Rs"> Rs </option>
+                                                            <option value="$"> $ </option>
+                                                        </select>
+                                                    </label>
                                                     <div class="input-group">
                                                         <input type="text" class="form-control input-sm border-input" name="price" [(ngModel)]="quote.price" #price="ngModel" required
                                                         />
-                                                        <span class="input-group-addon"> Rs/Kg </span>
+                                                        <span class="input-group-addon"> {{quote.currency}}/Kg </span>
                                                     </div>
                                                     <div *ngIf="f.submitted && !price.valid" class="help-block">Price is required</div>
                                                 </div>
@@ -97,7 +110,7 @@
                                                     <div class="input-group">
                                                         <input type="text" class="form-control input-sm border-input" name="grade" [(ngModel)]="quote.grade" #grade="ngModel" required
                                                         />
-                                                        <span class="input-group-addon"> {{quote.type?quote.type:'wholes/pieces'}} </span>
+                                                        <!-- <span class="input-group-addon"> {{quote.type?quote.type:'wholes/pieces'}} </span> -->
                                                     </div>
                                                     <div *ngIf="f.submitted && !grade.valid" class="help-block">grade is required</div>
                                                 </div>
@@ -169,8 +182,8 @@
                                         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !packing.valid }">
                                             <label for="packing">Packing</label>
                                             <select class="form-control border-input" name="packing" [(ngModel)]="quote.packing" #packing="ngModel" required>
-                                                <option selected value="2 tins of 10kg each in carton"> 2 Tins of 10kg each in carton </option>
-                                                <option value="2 tins of 10lbs each in carton"> 2 Tins of 10LBS each in carton </option>
+                                                <option selected value="2 tins of 10kg each in carton"> 2 Tins of 10kg each in a carton </option>
+                                                <option value="2 tins of 10lbs each in carton"> 2 Tins of 25lbs each in a carton </option>
                                             </select>
                                             <div *ngIf="f.submitted && !packing.valid" class="help-block">packing is required</div>
                                         </div>
@@ -189,14 +202,26 @@
                                             <div *ngIf="f.submitted && !quality.valid" class="help-block">quality and grading is required</div>
                                         </div>
 
+                                        <div class="row">
+                                            <div ngClass="{{quote.inspection == 'other'?'col-md-6 col-xs-6':'col-md-12 col-xs-12'}}">
+                                                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !inspection.valid }">
+                                                    <label for="inspection">Inspection</label>
+                                                    <select class="form-control border-input" name="inspection" [(ngModel)]="quote.inspection" #inspection="ngModel" required>
+                                                        <option selected value="sgs"> SGS </option>
+                                                        <option value="rbs"> RBS </option>
+                                                        <option value="other"> Other </option>
+                                                    </select>
+                                                    <div *ngIf="f.submitted && !inspection.valid" class="help-block">Inspection is required</div>
+                                                </div>
+                                            </div>
 
-
-                                        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !inspection.valid }">
-                                            <label for="inspection">Inspection</label>
-                                            <select class="form-control border-input" name="inspection" [(ngModel)]="quote.inspection" #inspection="ngModel" required>
-                                                <option selected value="sgs"> SGS </option>
-                                            </select>
-                                            <div *ngIf="f.submitted && !inspection.valid" class="help-block">Inspection is required</div>
+                                            <div *ngIf="quote.inspection == 'other'" class="col-md-6 col-xs-6">
+                                                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !inspection.valid }">
+                                                    <label for="inspection">Enter Here</label>
+                                                    <input class="form-control border-input" type="text" name="inspections" [(ngModel)]="inspections" required>
+                                                    <div *ngIf="f.submitted && !inspections.valid" class="help-block">Inspection is required</div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -227,16 +252,16 @@
                                             <div class="col-md-6">
                                                 <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !fob.valid }">
                                                     <label class="checkbox" for="fob">
-                                                        <input type="checkbox" class="form-control border-input" id="fob" data-toggle="checkbox" name="fob" [(ngModel)]="quote.fob" #fob="ngModel" >
-                                                        FOB
+                                                        <input type="checkbox" class="form-control border-input" id="fob" data-toggle="checkbox" name="fob" [(ngModel)]="quote.fob"
+                                                            #fob="ngModel"> FOB
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !cif.valid }">
                                                     <label class="checkbox" for="cif">
-                                                        <input type="checkbox" class="form-control border-input" id="cif" data-toggle="checkbox" name="cif" [(ngModel)]="quote.cif" #cif="ngModel" >
-                                                        CIF
+                                                        <input type="checkbox" class="form-control border-input" id="cif" data-toggle="checkbox" name="cif" [(ngModel)]="quote.cif"
+                                                            #cif="ngModel"> CIF
                                                     </label>
                                                 </div>
                                             </div>
@@ -249,7 +274,8 @@
                                             <div *ngIf="f.submitted && !paymentTerms.valid" class="help-block">Payment Terms is required</div>
                                         </div>
                                         <div class="form-group" *ngIf="work == 'offer'">
-                                            <label for="filePicker">Choose or drag a file:</label><br>
+                                            <label for="filePicker">Choose or drag a file:</label>
+                                            <br>
                                             <input type="file" id="filePicker" (change)="handleFileSelect($event)" required>
                                         </div>
                                     </div>

@@ -38,7 +38,7 @@
                                     </tr>
                                     <tr>
                                         <td>Quantity</td>
-                                        <td>{{offer.quantity}} Kgs</td>
+                                        <td>{{offer.quantity}} MT</td>
                                     </tr>
                                     <tr>
                                         <td>Shipment</td>
@@ -58,7 +58,7 @@
                                 <table class="table-grid">
                                     <tr>
                                         <td> Out-turn </td>
-                                        <td> {{offer.outTurn}}% </td>
+                                        <td> {{offer.outTurn}} lbs </td>
                                     </tr>
                                     <tr>
                                         <td>Defective</td>
@@ -120,19 +120,22 @@
                             <!-- Payment Terms -->
                             <div class="col-md-12 col-xs-12">
                                 <b>Payment Terms </b> : <small> {{offer.paymentTerms}} </small> <br>
-                                <a *ngIf="!offer.expand" (click)="offer.expand = true"> <small> <i class="ti-arrow-circle-right small-img"> </i> View More </small></a>
-                                <a *ngIf="offer.expand" (click)="offer.expand = false"> <small> <i class="ti-arrow-circle-left small-img"> </i> View Less </small></a>
+                                <a *ngIf="!offer.expand" class="pull-left" (click)="offer.expand = true"> <small> <i class="ti-arrow-circle-right small-img"> </i> View More </small></a>
+                                <a *ngIf="offer.expand" class="pull-left" (click)="offer.expand = false"> <small> <i class="ti-arrow-circle-left small-img"> </i> View Less </small></a>
                             </div>
                         </div>
                         <div class="text-center">
                             <div class="row">
-                                <div ngClass="{{offer.expand?'col-md-4 col-xs-4':'col-md-6 col-xs-6'}}">
-                                    <h5>Rs. {{offer.price}}<br /><small>Price/Kg</small></h5>
+                                <div ngClass="{{offer.expand?'col-md-4 col-xs-4':'col-md-4 col-xs-4'}}">
+                                    <h5>{{offer.currency}} {{offer.price}}<br /><small>Price/MT</small></h5>
                                 </div>
                                 <div *ngIf="offer.expand" class="col-md-4 col-xs-4">
                                     <h5>{{offer.createdAt | date}}<br /><small>Created At</small></h5>
                                 </div>
-                                <div ngClass="{{offer.expand?'col-md-4 col-xs-4':'col-md-6 col-xs-6'}}">
+                                <div *ngIf="!offer.expand" class="col-md-4 col-xs-4">
+                                    <h5><small class="text-danger">{{offer.fob?'FOB @ '+offer.landingPort:(offer.cif?'CIF':' ')}}</small></h5>
+                                </div>
+                                <div ngClass="{{offer.expand?'col-md-4 col-xs-4':'col-md-4 col-xs-4'}}">
                                     <h5>
                                         <!--<i class="ti-arrow-circle-right small-img" *ngIf="!offer.expand" (click)="offer.expand = true"> </i>
                                         <i class="ti-arrow-circle-left small-img" *ngIf="offer.expand" (click)="offer.expand = false"> </i>-->

@@ -23,6 +23,7 @@ export class ProcessedPost {
     step: Number = 1;
     editBoolean: Boolean;
     image: any;
+    inspections: String = '';
 
     constructor(private _service: MainServiceComponent, private _utility: UtilityService,
             private _alert: AlertService) {
@@ -93,6 +94,9 @@ export class ProcessedPost {
 
     save() {
         this._utility.showLoader();
+        if (this.inspections != '' && this.quote.inspection == 'other') {
+            this.quote.inspection = this.inspections;
+        }
         if (this.editBoolean) {
             this.update();
         } else if (this.work == 'offer') {

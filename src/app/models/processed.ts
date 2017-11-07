@@ -3,6 +3,7 @@ export class ProcessedCashewSchema {
     processedAt: String;
     quantity: Number;
     price: Number;
+    currency: String = 'Rs';
     type: Number;
     grade: Number;
     defective: Number;

@@ -3,6 +3,7 @@ export class RawCashewSchema {
     origin: String;
     quantity: Number;
     price: Number;
+    currency: String = 'Rs';
     outTurn: Number;
     nutCount: Number;
     defective: Number;

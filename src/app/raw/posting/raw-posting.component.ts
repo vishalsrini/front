@@ -21,6 +21,7 @@ export class RawPost {
     quote: RawCashewSchema;
     step: Number = 1;
     editBoolean: Boolean;
+    inspections: String = "";
 
     constructor(private _service: MainServiceComponent, private _utility: UtilityService,
             private _alert: AlertService) {
@@ -61,7 +62,10 @@ export class RawPost {
 
     save() {
         this._utility.showLoader();
-        if(this.editBoolean) {
+        if (this.inspections != '' && this.quote.inspection == 'other') {
+            this.quote.inspection = this.inspections;
+        }
+        if (this.editBoolean) {
             this.update();
         } else if (this.work == 'offer') {
             console.log('Quotation : ', JSON.stringify(this.quote));
