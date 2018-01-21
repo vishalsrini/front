@@ -1,4 +1,8 @@
-<app-raw-offer [negotiateView]='offer' [inputView]='rawoff'></app-raw-offer>
-<app-processed [negotiateView]='offer' [inputView]='processedoff'></app-processed>
-<app-raw-offer [negotiateView]='req' [inputView]='rawreq'></app-raw-offer>
-<app-processed [negotiateView]='req' [inputView]='processedreq'></app-processed>
+<app-raw-offer [negotiateView]='offer' [inputView]='rawoff' *ngIf="rawoff && rawoff.length>0"></app-raw-offer>
+<app-processed [negotiateView]='offer' [inputView]='processedoff' *ngIf="processedoff && processedoff.length > 0"></app-processed>
+<app-raw-offer [negotiateView]='req' [inputView]='rawreq' *ngIf="rawreq && rawreq.length > 0"></app-raw-offer>
+<app-processed [negotiateView]='req' [inputView]='processedreq' *ngIf="processedreq && processedreq.length>0"></app-processed>
+
+<div *ngIf = "rawoff.length == 0 && processedoff.length == 0 && rawreq.length == 0 && processedreq.length == 0" class="nothing">
+
+</div>

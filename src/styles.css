@@ -13,6 +13,30 @@
 
 .sidebar .sidebar-wrapper {
     width: 230px;
+    background: #012b72;
+}
+
+
+.nav>li {
+    color: #FFF;
+    opacity: .5;
+}
+
+li.active {
+    opacity: 1;
+}
+
+.sidebar .nav li:not(.active) > a, .sidebar[data-background-color="white"] .nav li:not(.active) > a, .off-canvas-sidebar .nav li:not(.active) > a, .off-canvas-sidebar[data-background-color="white"] .nav li:not(.active) > a {
+    color: #FFF;
+}
+
+.sidebar .nav li.active > a:after, .off-canvas-sidebar .nav li.active > a:after {
+    border-right: 17px solid #00b9f5;
+}
+
+.sidebar[data-active-color="danger"] .nav li.active > a, .off-canvas-sidebar[data-active-color="danger"] .nav li.active > a {
+    color: #FFF;
+    opacity: 1;
 }
 
 @media screen and (min-width: 800px) {
@@ -217,4 +241,8 @@ img {
 
 .removePadding {
     padding: 5px !important;
+}
+
+.dropdown, .dropup {
+    display: inline-block;
 }

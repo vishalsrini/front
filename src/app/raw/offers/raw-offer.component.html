@@ -12,6 +12,50 @@
                     <a *ngIf="!edit && !isNotMobile()" class="small pull-right" (click)="toggle()"> View Existing {{off?'requirements':'offers'}} </a>
                     <a *ngIf="edit" class="small pull-right" (click)="toggleOnce()"> View Existing {{off?'requirements':'offers'}} </a>
                 </p>
+                <div *ngIf="!edit">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Origin
+  <span class="caret"></span></button>
+                        <ul class="menu dropdown-menu">
+                            <li *ngFor="let origin of origin">
+                                <input type="checkbox" (click)="onSelect('origin',origin,$event)"> {{origin}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Year Of Crop
+  <span class="caret"></span></button>
+                        <ul class="menu dropdown-menu">
+                            <li *ngFor="let year of year">
+                                <input type="checkbox" (click)="onSelect('year',year,$event)"> {{year}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Nut Count
+  <span class="caret"></span></button>
+                        <ul class="menu dropdown-menu">
+                            <li *ngFor="let nutCount of nutCount">
+                                <input type="checkbox" (click)="onSelect('nutCount',nutCount,$event)"> {{nutCount}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Out Turn
+  <span class="caret"></span></button>
+                        <ul class="menu dropdown-menu">
+                            <li *ngFor="let outTurn of outTurn">
+                                <input type="checkbox" (click)="onSelect('outTurn',outTurn,$event)"> {{outTurn}}
+                            </li>
+                        </ul>
+                    </div>
+                    <br>
+                    <small style="display: flex">
+                        <span class="label label-default" *ngFor="let s of selected"> {{s.category}}:{{s.value}} 
+                            <!--<span (click)="onSelect(s.category,s.value,false)"> &times; </span> -->
+                        </span>
+                    </small>
+                </div>
             </div>
             <div class="content" *ngIf="offers.length">
                 <div ngClass="{{offer.expand?'col-md-12 col-xs-12 removePadding':'col-md-4 col-xs-12 removePadding'}}" *ngFor="let offer of offers">

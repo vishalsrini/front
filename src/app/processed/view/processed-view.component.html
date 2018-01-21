@@ -5,20 +5,65 @@
                 <h4 class="title">Processed Cashew {{off?'Offers':'Requirements'}}
                     <a *ngIf="!isNotMobile() && !edit && negotiateView == null" class="small pull-right" (click)="processedCashewPost(off?'offer':'requirement')"> Post Your {{off?'Offer':'Requirement'}} </a>
                 </h4>
-                <p class="category" *ngIf="negotiateView == null"> 
+                <p class="category" *ngIf="negotiateView == null">
                     <span *ngIf="!edit && !isNotMobile()">Pick the one you interested in or </span>
                     <span *ngIf="edit"> Existing Quotes </span>
                     <a *ngIf="!edit && !isNotMobile()" (click)="processedCashewPost(off?'requirement':'offer')"> post your {{off?'requirement':'offer'}} </a>
                     <a *ngIf="!edit && !isNotMobile()" class="small pull-right" (click)="toggle()"> View Existing {{off?'requirements':'offers'}} </a>
                     <a *ngIf="edit" class="small pull-right" (click)="toggleOnce()"> View Existing {{off?'requirements':'offers'}} </a>
                 </p>
+                <div *ngIf="!edit">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Origin
+  <span class="caret"></span></button>
+                        <ul class="menu dropdown-menu">
+                            <li *ngFor="let origin of origin">
+                                <input type="checkbox" (click)="onSelect('origin',origin,$event)"> {{origin}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Processed At
+  <span class="caret"></span></button>
+                        <ul class="menu dropdown-menu">
+                            <li *ngFor="let processedAt of processedAt">
+                                <input type="checkbox" (click)="onSelect('processedAt',processedAt,$event)"> {{processedAt}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Type
+  <span class="caret"></span></button>
+                        <ul class="menu dropdown-menu">
+                            <li *ngFor="let type of type">
+                                <input type="checkbox" (click)="onSelect('type',type,$event)"> {{type}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Grade
+  <span class="caret"></span></button>
+                        <ul class="menu dropdown-menu">
+                            <li *ngFor="let grade of grade">
+                                <input type="checkbox" (click)="onSelect('grade',grade,$event)"> {{grade}}
+                            </li>
+                        </ul>
+                    </div>
+                    <br>
+                    <small style="display: flex">
+                        <span class="label label-default" *ngFor="let s of selected"> {{s.category}}:{{s.value}} 
+                            <!--<span (click)="onSelect(s.category,s.value,false)"> &times; </span> -->
+                        </span>
+                    </small>
+                </div>
             </div>
             <div class="content" *ngIf="offers.length">
                 <div ngClass="{{offer.expand?'col-md-12 col-xs-12 removePadding':'col-md-4 col-xs-12 removePadding'}}" *ngFor="let offer of offers">
                     <div class="card card-user">
                         <div class="image" *ngIf="off" (mouseover)="fullImage=true" (mouseleave)="fullImage=false">
-                            <img [src]="offer.image" alt={{offer.origin}} ngClass="{{fullImage?'opace':''}}" />
-                            <i class="ti-eye hoverImage" *ngIf="fullImage" (click)="viewFullScreen(offer.image)"></i>
+                            <img *ngIf="offer.image && offer.image!=''" [src]="offer.image" alt={{offer.origin}} ngClass="{{fullImage?'opace':''}}" (click)="viewFullScreen(offer.image)" />
+                            <img src="/assets/img/image_default.jpg">
+                            <!--<i class="ti-eye hoverImage" *ngIf="fullImage" (click)="viewFullScreen(offer.image)"></i>-->
                         </div>
                         <div class="content text-center">
                             <!--<div *ngIf="edit" class="col-md-12 col-xs-12">
@@ -34,7 +79,7 @@
                                     <tr>
                                         <td> Processed At</td>
                                         <td> {{offer.processedAt}} </td>
-                                    </tr>    
+                                    </tr>
                                     <tr>
                                         <td>Type</td>
                                         <td>{{offer.type}}</td>
@@ -65,7 +110,7 @@
                                     <tr>
                                         <td> Defective</td>
                                         <td> {{offer.defective}}% </td>
-                                    </tr>    
+                                    </tr>
                                     <tr>
                                         <td>Moisture</td>
                                         <td>{{offer.moisture}}%</td>
@@ -97,7 +142,7 @@
                                     <tr>
                                         <td> NSLG </td>
                                         <td> {{offer.nslg}} </td>
-                                    </tr>    
+                                    </tr>
                                     <tr>
                                         <td>Inspection</td>
                                         <td>{{offer.inspection}}</td>

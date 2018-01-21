@@ -30,8 +30,8 @@ export class NavbarComponent implements OnInit{
         this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
     }
     getTitle(){
-        var titlee = window.location.pathname;
-        titlee = titlee.substring(1);
+        var titlee = location.hash;
+        titlee = titlee.split('/')[1];
         for(var item = 0; item < this.listTitles.length; item++){
             if(this.listTitles[item].path === titlee){
                 return this.listTitles[item].title;

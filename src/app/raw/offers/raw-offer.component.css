@@ -60,3 +60,10 @@ a:hover {
     opacity: 1;
     visibility: visible;
 }
+
+.menu {
+    min-width: 150px !important;
+    background: #7a9e9f !important;
+    padding: 10px !important;
+    margin-top: 2px !important;
+}

@@ -182,7 +182,7 @@ export class MainServiceComponent {
 
     postNegotiation(action, type, negotiate): Observable<any> {
         this._utility.showLoader();
-        return this.http.post('/negotiate/'+action+'/'+type, negotiate).map((response) => {
+        return this.http.post('/negotiate/' + action + '/' + type, negotiate).map((response) => {
             this._utility.hideLoader();
             return <any>response.json()
         });
@@ -194,6 +194,11 @@ export class MainServiceComponent {
             this._utility.hideLoader();
             console.log(response);
             return <any>response.json()
-        })
+        });
+    }
+
+    handleError(error: any) {
+        this._utility.hideLoader();
+        return Observable.throw(error._body);
     }
 }
