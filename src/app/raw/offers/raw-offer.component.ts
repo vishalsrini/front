@@ -176,7 +176,7 @@ export class RawOffers implements OnInit {
         })
     }
 
-        selected: any[] = [];
+    selected: any[] = [];
     onSelect(category: string, value: string, event: any) {
         if (event) {
             if (event.target.checked) {
@@ -184,7 +184,8 @@ export class RawOffers implements OnInit {
                     category: category,
                     value: value
                 })
-                console.log('selected -- ', this.selected);
+                // console.log('selected -- ', this.selected);
+                this.selected = _.sortBy(this.selected, [function (o) { return o.category }]);
                 this.filterArray();
             } else {
                 // this.selected.splice(this.selected.indexOf({
@@ -212,21 +213,60 @@ export class RawOffers implements OnInit {
     filterArray() {
         this.offers = this.originalArray;
         let offer: any[] = [];
+        let old = this.selected[0].category;
+
+        console.log('selected --> ', this.selected);
         for (var i = 0; i < this.selected.length; i++) {
-            let item = JSON.parse('[{"' + this.selected[i].category + '":"' + this.selected[i].value + '"}]');
-            // offer = _.concat(offer, _.intersectionBy(this.offers, item, this.selected[i].category));
-            this.offers = _.concat(offer, _.filter(this.offers, (n) => {
-                return _.isEqual(n[this.selected[i].category], this.selected[i].value);
-            }))
-            // console.log(offer);
-            // if(i == this.selected.length-1) {
-            //     // for(var j=0; j<offer.length; j++ ) {
-            //     //     this.offers = offer[j]
-            //     // }
-            //     this.offers = offer;
-            //     this.offers = _.uniq(this.offers);
-            // }
+            if (old != this.selected[i].category) {
+                old = this.selected[i].category;
+                // this.offers = _.concat(this.offers, _.uniq(offer));
+                this.offers = _.uniq(offer);
+                offer.length = 0;
+                offer = [];
+                offer = _.concat(offer, _.filter(this.offers, (n) => {
+                    return _.isEqual(n[this.selected[i].category], this.selected[i].value);
+                }))
+            } else {
+                offer = _.concat(offer, _.filter(this.offers, (n) => {
+                    return _.isEqual(n[this.selected[i].category], this.selected[i].value);
+                }))
+            }
+
+            // if (old == this.selected[i].category) {
+            //     offer = _.concat(offer, _.filter(this.offers, (n) => {
+            //         return _.isEqual(n[this.selected[i].category], this.selected[i].value);
+            //     }))
+            if (i == this.selected.length - 1) {
+                this.offers = _.uniq(offer);
+                offer.length = 0;
+                offer = [];
+            }
         }
+        //  else {
+        //     old = this.selected[i].category;
+        //     this.offers = _.uniq(offer);
+        //     offer.length = 0;
+        //     offer = [];
+        //     this.offers = _.filter(this.offers, (n) => {
+        //         return _.isEqual(n[this.selected[i].category], this.selected[i].value);
+        //     })
+        // }
+
+        // let item = JSON.parse('[{"' + this.selected[i].category + '":"' + this.selected[i].value + '"}]');
+        // offer = _.concat(offer, _.intersectionBy(this.offers, item, this.selected[i].category));
+
+        // this.offers = _.concat(offer, _.filter(this.offers, (n) => {
+        //     return _.isEqual(n[this.selected[i].category], this.selected[i].value);
+        // }))
+
+        // console.log(offer);
+        // if(i == this.selected.length-1) {
+        //     // for(var j=0; j<offer.length; j++ ) {
+        //     //     this.offers = offer[j]
+        //     // }
+        //     this.offers = offer;
+        //     this.offers = _.uniq(this.offers);
+        // }
     }
 
 }

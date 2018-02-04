@@ -197,6 +197,54 @@ export class ProcessedView {
         this.modalImage.showChildModal(image);
     }
 
+    toggleAll(category: string, event: any) {
+        if (event.target.checked) {
+            if (category == 'origin') {
+                for (let i = 0; i < this.origin.length; i++) {
+                    // let item = JSON.parse('{"category":"origin","value":'+this.origin[i]+'}');
+                    this.selected.push({
+                        category: "origin",
+                        value: this.origin[i]
+                    });
+                    this.selected = _.uniq(this.selected);
+                }
+            } else if (category == 'processedAt') {
+                for (let i = 0; i < this.processedAt.length; i++) {
+                    // let item = JSON.parse('{"category":"origin","value":'+this.origin[i]+'}');
+                    this.selected.push({
+                        category: "processedAt",
+                        value: this.processedAt[i]
+                    });
+                    this.selected = _.uniq(this.selected);
+                }
+
+            } else if (category == 'type') {
+                for (let i = 0; i < this.type.length; i++) {
+                    // let item = JSON.parse('{"category":"origin","value":'+this.origin[i]+'}');
+                    this.selected.push({
+                        category: "type",
+                        value: this.type[i]
+                    });
+                    this.selected = _.uniq(this.selected);
+                }
+
+            } else if (category == 'grade') {
+                for (let i = 0; i < this.grade.length; i++) {
+                    // let item = JSON.parse('{"category":"origin","value":'+this.origin[i]+'}');
+                    this.selected.push({
+                        category: "grade",
+                        value: this.grade[i]
+                    });
+                    this.selected = _.uniq(this.selected);
+                }
+            }
+        } else {
+            this.selected = _.remove(this.selected, (item) => {
+                return _.isEqual(item.category, category);
+            })
+        }
+    }
+
     selected: any[] = [];
     onSelect(category: string, value: string, event: any) {
         if (event) {
@@ -205,7 +253,8 @@ export class ProcessedView {
                     category: category,
                     value: value
                 })
-                console.log('selected -- ', this.selected);
+                // console.log('selected -- ', this.selected);
+                this.selected = _.sortBy(this.selected, [function (o) { return o.category }]);
                 this.filterArray();
             } else {
                 // this.selected.splice(this.selected.indexOf({
@@ -233,20 +282,59 @@ export class ProcessedView {
     filterArray() {
         this.offers = this.originalArray;
         let offer: any[] = [];
+        let old = this.selected[0].category;
+
+        console.log('selected --> ', this.selected);
         for (var i = 0; i < this.selected.length; i++) {
-            let item = JSON.parse('[{"' + this.selected[i].category + '":"' + this.selected[i].value + '"}]');
-            // offer = _.concat(offer, _.intersectionBy(this.offers, item, this.selected[i].category));
-            this.offers = _.concat(offer, _.filter(this.offers, (n) => {
-                return _.isEqual(n[this.selected[i].category], this.selected[i].value);
-            }))
-            // console.log(offer);
-            // if(i == this.selected.length-1) {
-            //     // for(var j=0; j<offer.length; j++ ) {
-            //     //     this.offers = offer[j]
-            //     // }
-            //     this.offers = offer;
-            //     this.offers = _.uniq(this.offers);
-            // }
+            if (old != this.selected[i].category) {
+                old = this.selected[i].category;
+                // this.offers = _.concat(this.offers, _.uniq(offer));
+                this.offers = _.uniq(offer);
+                offer.length = 0;
+                offer = [];
+                offer = _.concat(offer, _.filter(this.offers, (n) => {
+                    return _.isEqual(n[this.selected[i].category], this.selected[i].value);
+                }))
+            } else {
+                offer = _.concat(offer, _.filter(this.offers, (n) => {
+                    return _.isEqual(n[this.selected[i].category], this.selected[i].value);
+                }))
+            }
+
+            // if (old == this.selected[i].category) {
+            //     offer = _.concat(offer, _.filter(this.offers, (n) => {
+            //         return _.isEqual(n[this.selected[i].category], this.selected[i].value);
+            //     }))
+            if (i == this.selected.length - 1) {
+                this.offers = _.uniq(offer);
+                offer.length = 0;
+                offer = [];
+            }
         }
+        //  else {
+        //     old = this.selected[i].category;
+        //     this.offers = _.uniq(offer);
+        //     offer.length = 0;
+        //     offer = [];
+        //     this.offers = _.filter(this.offers, (n) => {
+        //         return _.isEqual(n[this.selected[i].category], this.selected[i].value);
+        //     })
+        // }
+
+        // let item = JSON.parse('[{"' + this.selected[i].category + '":"' + this.selected[i].value + '"}]');
+        // offer = _.concat(offer, _.intersectionBy(this.offers, item, this.selected[i].category));
+
+        // this.offers = _.concat(offer, _.filter(this.offers, (n) => {
+        //     return _.isEqual(n[this.selected[i].category], this.selected[i].value);
+        // }))
+
+        // console.log(offer);
+        // if(i == this.selected.length-1) {
+        //     // for(var j=0; j<offer.length; j++ ) {
+        //     //     this.offers = offer[j]
+        //     // }
+        //     this.offers = offer;
+        //     this.offers = _.uniq(this.offers);
+        // }
     }
 }

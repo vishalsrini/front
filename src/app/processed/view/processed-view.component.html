@@ -12,11 +12,14 @@
                     <a *ngIf="!edit && !isNotMobile()" class="small pull-right" (click)="toggle()"> View Existing {{off?'requirements':'offers'}} </a>
                     <a *ngIf="edit" class="small pull-right" (click)="toggleOnce()"> View Existing {{off?'requirements':'offers'}} </a>
                 </p>
-                <div *ngIf="!edit">
+                <div *ngIf="!edit && negotiateView == null">
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Origin
   <span class="caret"></span></button>
                         <ul class="menu dropdown-menu">
+                            <!--<li>
+                                <input type="checkbox" (click)="toggleAll('origin',$event)" checked=true> All
+                            </li>-->
                             <li *ngFor="let origin of origin">
                                 <input type="checkbox" (click)="onSelect('origin',origin,$event)"> {{origin}}
                             </li>
@@ -26,6 +29,9 @@
                         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Processed At
   <span class="caret"></span></button>
                         <ul class="menu dropdown-menu">
+                            <!--<li>
+                                <input type="checkbox" (click)="toggleAll('processedAt',$event)" checked=true> All
+                            </li>-->
                             <li *ngFor="let processedAt of processedAt">
                                 <input type="checkbox" (click)="onSelect('processedAt',processedAt,$event)"> {{processedAt}}
                             </li>
@@ -35,6 +41,9 @@
                         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Type
   <span class="caret"></span></button>
                         <ul class="menu dropdown-menu">
+                            <!--<li>
+                                <input type="checkbox" (click)="toggleAll('type',$event)" checked=true> All
+                            </li>-->
                             <li *ngFor="let type of type">
                                 <input type="checkbox" (click)="onSelect('type',type,$event)"> {{type}}
                             </li>
@@ -44,14 +53,17 @@
                         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Grade
   <span class="caret"></span></button>
                         <ul class="menu dropdown-menu">
+                            <!--<li>
+                                <input type="checkbox" (click)="toggleAll('grade',$event)" checked=true> All
+                            </li>-->
                             <li *ngFor="let grade of grade">
                                 <input type="checkbox" (click)="onSelect('grade',grade,$event)"> {{grade}}
                             </li>
                         </ul>
                     </div>
                     <br>
-                    <small style="display: flex">
-                        <span class="label label-default" *ngFor="let s of selected"> {{s.category}}:{{s.value}} 
+                    <small style="margin-top: 2px">
+                        <span  style="margin-right: 2px" class="label label-default" *ngFor="let s of selected"> {{s.category}}: {{s.value}} 
                             <!--<span (click)="onSelect(s.category,s.value,false)"> &times; </span> -->
                         </span>
                     </small>
@@ -60,9 +72,10 @@
             <div class="content" *ngIf="offers.length">
                 <div ngClass="{{offer.expand?'col-md-12 col-xs-12 removePadding':'col-md-4 col-xs-12 removePadding'}}" *ngFor="let offer of offers">
                     <div class="card card-user">
-                        <div class="image" *ngIf="off" (mouseover)="fullImage=true" (mouseleave)="fullImage=false">
-                            <img *ngIf="offer.image && offer.image!=''" [src]="offer.image" alt={{offer.origin}} ngClass="{{fullImage?'opace':''}}" (click)="viewFullScreen(offer.image)" />
-                            <img src="/assets/img/image_default.jpg">
+                        <div class="author" *ngIf="off" (mouseover)="offer.fullImage=true" (mouseleave)="offer.fullImage=false">
+                            <img class="avatar border-white" *ngIf="offer.image && offer.image!=''" style="text-align: center" [src]="offer.image" alt={{offer.origin}}
+                                ngClass="{{offer.fullImage?'opace':''}}" (click)="viewFullScreen(offer.image)" />
+                            <img class="avatar border-white" src="/assets/img/image_default.jpg" *ngIf="!offer.image && offer.image==''">
                             <!--<i class="ti-eye hoverImage" *ngIf="fullImage" (click)="viewFullScreen(offer.image)"></i>-->
                         </div>
                         <div class="content text-center">

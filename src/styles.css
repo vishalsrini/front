@@ -30,9 +30,7 @@ li.active {
     color: #FFF;
 }
 
-.sidebar .nav li.active > a:after, .off-canvas-sidebar .nav li.active > a:after {
-    border-right: 17px solid #00b9f5;
-}
+
 
 .sidebar[data-active-color="danger"] .nav li.active > a, .off-canvas-sidebar[data-active-color="danger"] .nav li.active > a {
     color: #FFF;
@@ -43,12 +41,21 @@ li.active {
     .main-panel {
         width: calc(100% - 230px);
     }
+
+    .sidebar .nav li.active > a:after, .off-canvas-sidebar .nav li.active > a:after {
+        border-right: 17px solid #00b9f5;
+    }   
+
 }
 
 @media screen and (max-width: 800px) {
     .modal-backdrop {
         z-index: -1 !important;
     } 
+
+    .sidebar .nav > li.active > a:after {
+        border-left: 17px solid #00b9f5;
+    }
 }
 
 @media screen and (min-width: 800px) {

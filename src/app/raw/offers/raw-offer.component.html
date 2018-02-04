@@ -12,7 +12,7 @@
                     <a *ngIf="!edit && !isNotMobile()" class="small pull-right" (click)="toggle()"> View Existing {{off?'requirements':'offers'}} </a>
                     <a *ngIf="edit" class="small pull-right" (click)="toggleOnce()"> View Existing {{off?'requirements':'offers'}} </a>
                 </p>
-                <div *ngIf="!edit">
+                <div *ngIf="!edit && negotiateView == null">
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Origin
   <span class="caret"></span></button>
@@ -50,8 +50,8 @@
                         </ul>
                     </div>
                     <br>
-                    <small style="display: flex">
-                        <span class="label label-default" *ngFor="let s of selected"> {{s.category}}:{{s.value}} 
+                    <small style="margin-top: 2px">
+                        <span  style="margin-right: 2px" class="label label-default" *ngFor="let s of selected"> {{s.category}}: {{s.value}} 
                             <!--<span (click)="onSelect(s.category,s.value,false)"> &times; </span> -->
                         </span>
                     </small>
