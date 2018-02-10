@@ -64,8 +64,8 @@ a:hover {
 .hoverImage {
     color: black !important;
     position: absolute;
-    top: 5px;
-    right: 10px;
+    top: 50%;
+    right: 50%;
     font-size: 24px;
     cursor: pointer;
 }
@@ -89,3 +89,5 @@ a:hover {
 .card-user .avatar {
     border-radius: 0px !important;
 }
+
+img {width: 100%}

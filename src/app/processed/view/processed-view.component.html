@@ -3,19 +3,21 @@
         <div class="card card-plain">
             <div class="header">
                 <h4 class="title">Processed Cashew {{off?'Offers':'Requirements'}}
-                    <a *ngIf="!isNotMobile() && !edit && negotiateView == null" class="small pull-right" (click)="processedCashewPost(off?'offer':'requirement')"> Post Your {{off?'Offer':'Requirement'}} </a>
+                    <a *ngIf="!isNotMobile() && !edit && negotiateView == null" class="small pull-right" (click)="processedCashewPost(off?'offer':'requirement')">
+                    Post Your {{off?'Offer':'Requirement'}} </a>
                 </h4>
                 <p class="category" *ngIf="negotiateView == null">
                     <span *ngIf="!edit && !isNotMobile()">Pick the one you interested in or </span>
                     <span *ngIf="edit"> Existing Quotes </span>
                     <a *ngIf="!edit && !isNotMobile()" (click)="processedCashewPost(off?'requirement':'offer')"> post your {{off?'requirement':'offer'}} </a>
                     <a *ngIf="!edit && !isNotMobile()" class="small pull-right" (click)="toggle()"> View Existing {{off?'requirements':'offers'}} </a>
-                    <a *ngIf="edit" class="small pull-right" (click)="toggleOnce()"> View Existing {{off?'requirements':'offers'}} </a>
+                    <a *ngIf="edit" class="small pull-right" (click)="toggleOnce()"> View {{edit?'Your':'Existing'}} {{off?'requirements':'offers'}} </a>
                 </p>
                 <div *ngIf="!edit && negotiateView == null">
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Origin
-  <span class="caret"></span></button>
+                            <span class="caret"></span>
+                        </button>
                         <ul class="menu dropdown-menu">
                             <!--<li>
                                 <input type="checkbox" (click)="toggleAll('origin',$event)" checked=true> All
@@ -27,7 +29,8 @@
                     </div>
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Processed At
-  <span class="caret"></span></button>
+                            <span class="caret"></span>
+                        </button>
                         <ul class="menu dropdown-menu">
                             <!--<li>
                                 <input type="checkbox" (click)="toggleAll('processedAt',$event)" checked=true> All
@@ -39,7 +42,8 @@
                     </div>
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Type
-  <span class="caret"></span></button>
+                            <span class="caret"></span>
+                        </button>
                         <ul class="menu dropdown-menu">
                             <!--<li>
                                 <input type="checkbox" (click)="toggleAll('type',$event)" checked=true> All
@@ -51,7 +55,8 @@
                     </div>
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Grade
-  <span class="caret"></span></button>
+                            <span class="caret"></span>
+                        </button>
                         <ul class="menu dropdown-menu">
                             <!--<li>
                                 <input type="checkbox" (click)="toggleAll('grade',$event)" checked=true> All
@@ -63,7 +68,7 @@
                     </div>
                     <br>
                     <small style="margin-top: 2px">
-                        <span  style="margin-right: 2px" class="label label-default" *ngFor="let s of selected"> {{s.category}}: {{s.value}} 
+                        <span style="margin-right: 2px" class="label label-default" *ngFor="let s of selected"> {{s.category}}: {{s.value}}
                             <!--<span (click)="onSelect(s.category,s.value,false)"> &times; </span> -->
                         </span>
                     </small>
@@ -76,7 +81,7 @@
                             <img class="avatar border-white" *ngIf="offer.image && offer.image!=''" style="text-align: center" [src]="offer.image" alt={{offer.origin}}
                                 ngClass="{{offer.fullImage?'opace':''}}" (click)="viewFullScreen(offer.image)" />
                             <img class="avatar border-white" src="/assets/img/image_default.jpg" *ngIf="!offer.image && offer.image==''">
-                            <!--<i class="ti-eye hoverImage" *ngIf="fullImage" (click)="viewFullScreen(offer.image)"></i>-->
+                            <!-- <i class="ti-eye hoverImage" *ngIf="fullImage" (click)="viewFullScreen(offer.image)"></i> -->
                         </div>
                         <div class="content text-center">
                             <!--<div *ngIf="edit" class="col-md-12 col-xs-12">
@@ -87,23 +92,23 @@
                                 <table class="table-grid">
                                     <tr>
                                         <td> Origin </td>
-                                        <td> {{offer.origin}} </td>
+                                        <td ngClass="{{!offer.expand?'overflowItem':''}}"> {{offer.origin}} </td>
                                     </tr>
                                     <tr>
                                         <td> Processed At</td>
-                                        <td> {{offer.processedAt}} </td>
+                                        <td ngClass="{{!offer.expand?'overflowItem':''}}"> {{offer.processedAt}} </td>
                                     </tr>
                                     <tr>
                                         <td>Type</td>
-                                        <td>{{offer.type}}</td>
+                                        <td ngClass="{{!offer.expand?'overflowItem':''}}">{{offer.type}}</td>
                                     </tr>
                                     <tr>
                                         <td> Grade </td>
-                                        <td> {{offer.grade}} </td>
+                                        <td ngClass="{{!offer.expand?'overflowItem':''}}"> {{offer.grade}} </td>
                                     </tr>
                                     <tr>
                                         <td>Quantity</td>
-                                        <td>{{offer.quantity}} Kgs</td>
+                                        <td ngClass="{{!offer.expand?'overflowItem':''}}">{{offer.quantity}} Kgs</td>
                                     </tr>
                                 </table>
                                 <!--Origin <br> Processed At <br> Type <br> Quantity <br> Shipment-->
@@ -134,7 +139,9 @@
                                     </tr>
                                     <tr>
                                         <td>FOB</td>
-                                        <td><i ngClass="{{offer.fob?'ti-check text-primary':'ti-na text-danger'}}"></i></td>
+                                        <td>
+                                            <i ngClass="{{offer.fob?'ti-check text-primary':'ti-na text-danger'}}"></i>
+                                        </td>
                                     </tr>
                                 </table>
                                 <!--Grade <br> Defective <br> Moisture <br> Quality <br> FOB
@@ -166,7 +173,9 @@
                                     </tr>
                                     <tr>
                                         <td>CIF</td>
-                                        <td><i ngClass="{{offer.cif?'ti-check text-primary':'ti-na text-danger'}}"></i></td>
+                                        <td>
+                                            <i ngClass="{{offer.cif?'ti-check text-primary':'ti-na text-danger'}}"></i>
+                                        </td>
                                     </tr>
                                 </table>
                                 <!--Packing <br> nslg <br> Inspection <br> Location <br> CIF
@@ -179,25 +188,41 @@
 
                             <!-- Payment Terms -->
                             <div class="col-md-12 col-xs-12">
-                                <b>Payment Terms </b> : <small> {{offer.paymentTerms}} </small> <br>
-                                <a *ngIf="!offer.expand" class="pull-left" (click)="offer.expand = true"> <small> <i class="ti-arrow-circle-right small-img"> </i> View More </small></a>
-                                <a *ngIf="offer.expand" class="pull-left" (click)="offer.expand = false"> <small> <i class="ti-arrow-circle-left small-img"> </i> View Less </small></a>
+                                <b>Payment Terms </b> :
+                                <small ngClass="{{!offer.expand?'overflow':''}}"> {{offer.paymentTerms}} </small>
+                                <br>
+                                <a *ngIf="!offer.expand" class="pull-left" (click)="offer.expand = true">
+                                    <small>
+                                        <i class="ti-arrow-circle-right small-img"> </i> View More </small>
+                                </a>
+                                <a *ngIf="offer.expand" class="pull-left" (click)="offer.expand = false">
+                                    <small>
+                                        <i class="ti-arrow-circle-left small-img"> </i> View Less </small>
+                                </a>
                             </div>
                         </div>
                         <hr>
                         <div class="text-center">
                             <div class="row">
                                 <div ngClass="{{offer.expand?'col-md-4 col-xs-4':'col-md-6 col-xs-6'}}">
-                                    <h5>{{offer.currency}} {{offer.price}}<br /><small>Price/Kg</small></h5>
+                                    <h5>{{offer.currency}} {{offer.price}}
+                                        <br />
+                                        <small>Price/Kg</small>
+                                    </h5>
                                 </div>
                                 <div *ngIf="offer.expand" class="col-md-4 col-xs-4">
-                                    <h5>{{offer.createdAt | date}}<br /><small>Created At</small></h5>
+                                    <h5>{{offer.createdAt | date}}
+                                        <br />
+                                        <small>Created At</small>
+                                    </h5>
                                 </div>
                                 <div ngClass="{{offer.expand?'col-md-4 col-xs-4':'col-md-6 col-xs-6'}}">
                                     <h5>
                                         <span *ngIf="negotiateView!=null" class="text-primary"> {{offer.status}} </span>
-                                        <button class="btn btn-sm btn-success" *ngIf="!edit && negotiateView == null" (click)="negotiateItem(offer._id, off?'offer':'req')"> Negotiate </button>
-                                        <button class="btn btn-sm btn-danger" *ngIf="edit && negotiateView == null" (click)="editmethod(off?'offer':'requirement', offer)"> Edit </button>
+                                        <button class="btn btn-sm btn-success" *ngIf="!edit && negotiateView == null" (click)="negotiateItem(offer._id, offer, off?'offer':'req')">
+                                        Negotiate </button>
+                                        <button class="btn btn-sm btn-danger" *ngIf="edit && negotiateView == null" (click)="editmethod(off?'offer':'requirement', offer)">
+                                        Edit </button>
                                     </h5>
                                 </div>
                             </div>
@@ -206,7 +231,8 @@
                 </div>
             </div>
             <div class="content" *ngIf="!offers.length && negotiateView == null">
-                No data found. <span *ngIf="edit"> Post Something to view here </span>
+                No data found.
+                <span *ngIf="edit"> Post Something to view here </span>
                 <span *ngIf="!edit"> Will get something for you shortly </span>
             </div>
             <div class="content" *ngIf="!offers.length && negotiateView != null">
@@ -216,12 +242,19 @@
     </div>
     <div *ngIf="!edit && negotiateView == null" class="btn-group dropup floating-action-button">
         <button type="button" class="btn btn-lg btn-primary btn-fill btn-circle dropdown-toggle" ngClass="{{rotate?'rotate':''}}"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="$event.stopPropagation(); rotate=!rotate"><i class="ti-plus text-default"></i>
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="$event.stopPropagation(); rotate=!rotate">
+            <i class="ti-plus text-default"></i>
         </button>
         <ul class="dropdown-menu dropdown-menu-right" ngClass="{{rotate?'showDropdown':''}}">
-            <li><a class="btn btn-primary text-default" (click)="processedCashewPost('offer')"> Post Your Offer </a></li>
-            <li><a class="btn btn-primary text-default" (click)="processedCashewPost('requirement')"> Post Your Requirement </a></li>
-            <li><a class="btn btn-primary text-default" (click)="toggle()"> View Existing  {{off?'Requirements':'Offers'}}</a></li>
+            <li>
+                <a class="btn btn-primary text-default" (click)="processedCashewPost('offer')"> Post Your Offer </a>
+            </li>
+            <li>
+                <a class="btn btn-primary text-default" (click)="processedCashewPost('requirement')"> Post Your Requirement </a>
+            </li>
+            <li>
+                <a class="btn btn-primary text-default" (click)="toggle()"> View Existing {{off?'Requirements':'Offers'}}</a>
+            </li>
         </ul>
     </div>
 </div>

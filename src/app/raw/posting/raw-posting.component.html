@@ -37,7 +37,7 @@
 
                     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !year.valid }">
                       <label for="year">Year of Crop</label>
-                      <input type="text" class="form-control input-sm border-input" name="year" [(ngModel)]="quote.year" #year="ngModel" required
+                      <input type="number" class="form-control input-sm border-input" name="year" [(ngModel)]="quote.year" #year="ngModel" required
                       />
                       <div *ngIf="f.submitted && !year.valid" class="help-block">Year of Crop is required</div>
                     </div>
@@ -54,7 +54,7 @@
                         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !quantity.valid }">
                           <label for="quantity">Quantity</label>
                           <div class="input-group">
-                            <input type="text" class="form-control input-sm border-input" name="quantity" [(ngModel)]="quote.quantity" #quantity="ngModel"
+                            <input type="number" class="form-control input-sm border-input" name="quantity" [(ngModel)]="quote.quantity" #quantity="ngModel"
                               required />
                             <span class="input-group-addon"> MT </span>
                           </div>
@@ -71,7 +71,7 @@
                             </select>
                           </label>
                           <div class="input-group">
-                            <input type="text" class="form-control input-sm border-input" name="price" [(ngModel)]="quote.price" #price="ngModel" required
+                            <input type="number" class="form-control input-sm border-input" name="price" [(ngModel)]="quote.price" #price="ngModel" required
                             />
                             <span class="input-group-addon"> {{quote.currency}}/MT </span>
                           </div>

@@ -12,7 +12,7 @@ declare var window;
 @Component({
     selector: 'processed-post',
     templateUrl: './processed-post.component.html',
-    styles: ['.row { margin-left: auto; margin-right: auto } .checkbox input[type="checkbox"], .radio input[type="radio"] { opacity: 1 !important } ']
+    styles: ['img {width: 100%} .row { margin-left: auto; margin-right: auto } .checkbox input[type="checkbox"], .radio input[type="radio"] { opacity: 1 !important } ']
 })
 export class ProcessedPost {
     @ViewChild('childModal') public childModal: ModalDirective;
@@ -26,7 +26,7 @@ export class ProcessedPost {
     inspections: String = '';
 
     constructor(private _service: MainServiceComponent, private _utility: UtilityService,
-            private _alert: AlertService) {
+        private _alert: AlertService) {
         this.quote = new ProcessedCashewSchema();
     }
 
@@ -71,9 +71,9 @@ export class ProcessedPost {
         resize.init();
 
         resize.photo(files[0], 500, 'dataURL', (thumbnail) => {
-            file = thumbnail;  
-            console.log(file); 
-            this.base64textString  = file;
+            file = thumbnail;
+            console.log(file);
+            this.base64textString = file;
             this._utility.hideLoader();
         });
 
@@ -98,9 +98,14 @@ export class ProcessedPost {
             this.quote.inspection = this.inspections;
         }
         if (this.editBoolean) {
+            console.log('started!!!');
             this.update();
         } else if (this.work == 'offer') {
             console.log('Quotation : ', JSON.stringify(this.quote));
+            this.quote.type = this.quote.type.trim().toUpperCase();
+            this.quote.origin = this.quote.origin.trim().toUpperCase();
+            this.quote.processedAt = this.quote.processedAt.trim().toUpperCase();
+            this.quote.grade = this.quote.grade.trim().toUpperCase();
             this.quote['image'] = this.base64textString;
             this._service.postProcessedOffers(this.quote).subscribe(data => {
                 console.log('Response : ', JSON.stringify(data));
@@ -111,6 +116,10 @@ export class ProcessedPost {
             })
         } else if (this.work == 'req') {
             console.log('Requirement Quotation: ', JSON.stringify(this.quote));
+            this.quote.type = this.quote.type.trim().toUpperCase();
+            this.quote.origin = this.quote.origin.trim().toUpperCase();
+            this.quote.processedAt = this.quote.processedAt.trim().toUpperCase();
+            this.quote.grade = this.quote.grade.trim().toUpperCase();
             this._service.postProcessedRequirements(this.quote).subscribe(data => {
                 console.log('Response of Requirement : ', JSON.stringify(data));
                 this._alert.success(data.message);
@@ -123,9 +132,14 @@ export class ProcessedPost {
     }
 
     update() {
+        console.log(this.work);
         if (this.work == 'offer') {
             let id = this.quote._id;
-            this.quote['image'] = this.base64textString;
+            this.quote.type = this.quote.type.trim().toUpperCase();
+            this.quote.origin = this.quote.origin.trim().toUpperCase();
+            this.quote.processedAt = this.quote.processedAt.trim().toUpperCase();
+            this.quote.grade = this.quote.grade.trim().toUpperCase();
+            this.quote['image'] = this.base64textString ? this.base64textString : this.quote['image'];
             let quotation = this.quote;
             console.log('Quotation : ', JSON.stringify(quotation));
 
@@ -138,16 +152,18 @@ export class ProcessedPost {
             })
         } else if (this.work == 'req') {
             let id = this.quote._id;
+            this.quote.type = this.quote.type.trim().toUpperCase();
+            this.quote.origin = this.quote.origin.trim().toUpperCase();
+            this.quote.processedAt = this.quote.processedAt.trim().toUpperCase();
+            this.quote.grade = this.quote.grade.trim().toUpperCase();
             let quotation = this.quote;
             console.log('Requirement Quotation: ', JSON.stringify(quotation));
-
             this._service.postProcessedRequirement(id, quotation).subscribe(data => {
                 console.log('Response of Requirement : ', JSON.stringify(data));
                 this._alert.success(data.message);
                 this.hideChildModal();
             }).add(response => {
                 this._utility.hideLoader();
-                
             })
         }
 

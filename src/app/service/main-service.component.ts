@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { UtilityService } from './utility-service.component';
 import 'rxjs/add/operator/map'
@@ -152,15 +152,22 @@ export class MainServiceComponent {
         });
     }
 
-    postProcessedOffer(id, offer): Observable<any> {
+    postProcessedOffer(id, offers): Observable<any> {
         this._utility.showLoader();
+        let offer = offers;
         delete offer.status;
         delete offer._id;
         delete offer.updatedAt;
         delete offer.createdAt;
         delete offer.__v;
-        delete offer.status;
-        return this.http.put('/offers/processed/' + id, offer).map((response: Response) => {
+        // delete offer.status;
+        // delete offer.image;
+        delete offer.fullImage;
+        console.log(JSON.stringify(offer));
+        offer = JSON.stringify(offer);
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.put('/offers/processed/' + id, offer, options).map((response: Response) => {
             this._utility.hideLoader();
             return <any>response.json()
         });

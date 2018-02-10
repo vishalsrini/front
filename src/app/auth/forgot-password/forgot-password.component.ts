@@ -37,7 +37,8 @@ export class ForgotPasswordComponent {
                 this.router.navigate(['\login']);
             },
             error => {
-                this.alertService.error(error);
+                error = JSON.parse(error);
+                this.alertService.error(error.message);
                 this.loading = false;
             });
     }

@@ -14,10 +14,10 @@
                 <div class="col-xs-12 col-md-12">
                     <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
                         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-                            <label for="username">Email</label>
-                            <input type="text" class="form-control border-input" name="username" [(ngModel)]="model.username" #username="ngModel" required
-                            />
-                            <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
+                            <label for="username">Email ID</label>
+                            <input type="email" class="form-control border-input" name="username" [(ngModel)]="model.username" [email]="true" #username="ngModel"
+                                required />
+                            <div *ngIf="f.submitted && !username.valid" class="help-block">Email ID is required</div>
                         </div>
                         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
                             <label for="password">Password</label>
@@ -36,8 +36,8 @@
                     </form>
                 </div>
             </div>
-            <div class="pull-left" [routerLink]="['/forgot']"> Forgot Password? </div>
-            <div class="pull-right" [routerLink]="['/forgot']"> Verification Link? </div>
+            <div class="pull-left" style="cursor: pointer" [routerLink]="['/forgot']"> Forgot Password? </div>
+            <div class="pull-right" style="cursor: pointer" [routerLink]="['/forgot']"> Verification Link? </div>
             <br>
         </div>
     </div>

@@ -55,7 +55,7 @@
                                                 <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !quantity.valid }">
                                                     <label for="quantity">Quantity</label>
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control input-sm border-input" name="quantity" [(ngModel)]="quote.quantity" #quantity="ngModel"
+                                                        <input type="number" class="form-control input-sm border-input" name="quantity" [(ngModel)]="quote.quantity" #quantity="ngModel"
                                                             required />
                                                         <span class="input-group-addon"> KGS </span>
                                                     </div>
@@ -72,7 +72,7 @@
                                                         </select>
                                                     </label>
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control input-sm border-input" name="price" [(ngModel)]="quote.price" #price="ngModel" required
+                                                        <input type="number" class="form-control input-sm border-input" name="price" [(ngModel)]="quote.price" #price="ngModel" required
                                                         />
                                                         <span class="input-group-addon"> {{quote.currency}}/Kg </span>
                                                     </div>
@@ -107,11 +107,11 @@
                                             <div class="col-md-6 col-xs-6">
                                                 <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !grade.valid }">
                                                     <label for="grade">Grade</label>
-                                                    <div class="input-group">
+                                                    <!-- <div class="input-group"> -->
                                                         <input type="text" class="form-control input-sm border-input" name="grade" [(ngModel)]="quote.grade" #grade="ngModel" required
                                                         />
                                                         <!-- <span class="input-group-addon"> {{quote.type?quote.type:'wholes/pieces'}} </span> -->
-                                                    </div>
+                                                    <!-- </div> -->
                                                     <div *ngIf="f.submitted && !grade.valid" class="help-block">grade is required</div>
                                                 </div>
                                             </div>

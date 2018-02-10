@@ -40,7 +40,10 @@ export class CustomHttp extends Http {
         // add authorization header with jwt token
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (currentUser && currentUser.token) {
-            
+            // options.headers.append('Content-Type', 'application/json; charset=UTF-8');
+            // options.headers.append('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+            // options.headers.append('Access-Control-Allow-Origin', '*');
+            // options.headers.append('Access-Control-Allow-Headers', 'GET, PUT, POST, DELETE, HEAD, OPTIONS, Origin, X-Requested-With, Content-Type, Accept, x-access-token');
             options.headers.append('x-access-token', currentUser.token);
             console.log(options);
         }

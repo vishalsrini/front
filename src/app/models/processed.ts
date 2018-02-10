@@ -4,8 +4,8 @@ export class ProcessedCashewSchema {
     quantity: Number;
     price: Number;
     currency: String = 'Rs';
-    type: Number;
-    grade: Number;
+    type: String;
+    grade: String;
     defective: Number;
     moisture: Number;
     quality: String;

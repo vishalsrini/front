@@ -147,7 +147,7 @@ export class RawOffers implements OnInit {
         if (type == 'offer') {
             this.rawPost.edit(type, offer);
         } else if (type == 'requirement') {
-            this.rawPost.edit(type, offer);
+            this.rawPost.edit('req', offer);
         }
     }
 
@@ -166,9 +166,17 @@ export class RawOffers implements OnInit {
         return true;
     }
 
-    negotiateItem(id, from) {
+    negotiateItem(id, offer, from) {
         this._utility.showLoader();
         this.negotiate.negotiatedItemId = id;
+        this.negotiate.currency = offer.currency;
+        this.negotiate.origin = offer.origin;
+        this.negotiate.price = offer.price;
+        this.negotiate.nutCount = offer.nutCount;
+        this.negotiate.year = offer.year;
+        this.negotiate.quantity = offer.quantity;
+        this.negotiate.paymentTerms = offer.paymentTerms;
+        this.negotiate.outTurn = offer.outTurn;
         this.service.postNegotiation(from, 'raw', this.negotiate).subscribe(res => {
             console.log(JSON.stringify(res));
             this._utility.hideLoader();

@@ -12,7 +12,7 @@ declare var $: any;
 @Component({
     selector: 'raw-post',
     templateUrl: './raw-posting.component.html',
-    styles: ['.row { margin-left: auto; margin-right: auto } .checkbox input[type="checkbox"], .radio input[type="radio"] { opacity: 1 !important } ']
+    styles: ['img {width: 100%} .row { margin-left: auto; margin-right: auto } .checkbox input[type="checkbox"], .radio input[type="radio"] { opacity: 1 !important } ']
 })
 export class RawPost {
     @ViewChild('childModal') public childModal: ModalDirective;
@@ -24,7 +24,7 @@ export class RawPost {
     inspections: String = "";
 
     constructor(private _service: MainServiceComponent, private _utility: UtilityService,
-            private _alert: AlertService) {
+        private _alert: AlertService) {
         this.quote = new RawCashewSchema();
     }
 
@@ -65,6 +65,8 @@ export class RawPost {
         if (this.inspections != '' && this.quote.inspection == 'other') {
             this.quote.inspection = this.inspections;
         }
+        this.quote.origin = this.quote.origin.trim().toUpperCase();
+
         if (this.editBoolean) {
             this.update();
         } else if (this.work == 'offer') {
@@ -92,6 +94,7 @@ export class RawPost {
     update() {
         if (this.work == 'offer') {
             let id = this.quote._id;
+            this.quote.origin = this.quote.origin.trim().toUpperCase();
             let quotation = this.quote;
             console.log('Quotation : ', JSON.stringify(quotation));
             this._service.postRawOffer(id, quotation).subscribe(data => {
@@ -104,7 +107,7 @@ export class RawPost {
         } else if (this.work == 'req') {
             let id = this.quote._id;
             let quotation = this.quote;
-            console.log('Requirement Quotation: ', JSON.stringify(quotation)); 
+            console.log('Requirement Quotation: ', JSON.stringify(quotation));
             this._service.postRawRequirement(id, quotation).subscribe(data => {
                 console.log('Response of Requirement : ', JSON.stringify(data));
                 this._alert.success(data.message);

@@ -140,6 +140,7 @@ export class ProcessedView {
 
     toggleOnce() {
         this.offers.length = 0;
+        this.selected.length = 0;
         if (this.off) {
             this.getRequirement();
         } else {
@@ -149,6 +150,7 @@ export class ProcessedView {
     }
 
     toggle() {
+        this.selected.length = 0;
         this.offers.length = 0;
         if (this.off) {
             this.getRequirements();
@@ -162,7 +164,7 @@ export class ProcessedView {
         if (type == 'offer') {
             this.processedPost.edit(type, offer);
         } else if (type == 'requirement') {
-            this.processedPost.edit(type, offer);
+            this.processedPost.edit('req', offer);
         }
     }
 
@@ -183,9 +185,18 @@ export class ProcessedView {
         return true;
     }
 
-    negotiateItem(id, from) {
+    negotiateItem(id, offer, from) {
         this._utility.showLoader();
         this.negotiate.negotiatedItemId = id;
+        this.negotiate.currency = offer.currency;
+        this.negotiate.price = offer.price;
+        this.negotiate.quantity = offer.quantity;
+        this.negotiate.paymentTerms = offer.paymentTerms;
+        this.negotiate.origin = offer.origin;
+        this.negotiate.type = offer.type;
+        this.negotiate.grade = offer.grade;
+        this.negotiate.processedAt = offer.processedAt;
+
         this.service.postNegotiation(from, 'processed', this.negotiate).subscribe(res => {
             console.log("JSON RESPONSE", JSON.stringify(res));
             this._utility.hideLoader();

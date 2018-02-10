@@ -36,8 +36,6 @@ import { TablePipe } from './utility/pipes/table-pipe.component';
 import { FilterPipe } from './utility/pipes/filter.component';
 import { TruncatePipe } from './utility/pipes/truncate-pipe.component';
 import { PaginationPipePipe } from './utility/pipes/pagination-pipe.component';
-import { GraphComponent } from './utility/graph/graph.component';
-import { FixedGraphComponent } from './utility/fixed-graph/fixed-graph.component';
 
 // pipes for project
 import { SearchCollateralPipe } from './pipes/search-collateral-pipe.component';
@@ -116,7 +114,8 @@ import { MainServiceComponent } from './service/main-service.component';
     TruncatePipe, // To truncate last few lines and add ... to its end
     PaginationComponent, // nexan pagination component
     PaginationPipePipe,  
-    SearchEligibleCriteriaPipe  // get the data as per the pagination
+    SearchEligibleCriteriaPipe,  // get the data as per the pagination
+    SearchCollateralPipe
   ],
   imports: [
     BrowserModule,

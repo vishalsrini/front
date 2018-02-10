@@ -33,7 +33,9 @@ export class ForgotComponent {
                 this.router.navigate(['\login']);
             },
             error => {
-                this.alertService.error(error);
+                error = JSON.parse(error);
+                console.log(error);
+                this.alertService.error(error.message);
                 this.loading = false;
             });
     }
@@ -49,7 +51,8 @@ export class ForgotComponent {
                     this.router.navigate(['\login']);
                 },
                 error => {
-                    this.alertService.error(error);
+                    error = JSON.parse(error);
+                    this.alertService.error(error.err.message);
                     this.loading = false;
                 });
         } else {

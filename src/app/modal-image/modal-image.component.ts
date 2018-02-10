@@ -5,6 +5,7 @@ import { ModalDirective } from 'ng2-bootstrap/modal';
     selector: 'modal-image',
     templateUrl: './modal-image.component.html',
     styles: [`
+    img {width: 100%}
     @media (min-width: 768px) { 
         .modal-dialog {
             margin: 30px 30%;
